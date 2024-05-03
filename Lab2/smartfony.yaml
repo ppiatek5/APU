@@ -1,0 +1,151 @@
+Version: 2.0
+
+
+################################
+# Alternatives Section
+#
+
+Alternatives: &alternatives
+  Galaxy A55:
+    wyswietlacz: 6.6
+    pamiec_RAM: 8
+    pamiec_wbudowana: 128
+    aparat_foto: 50
+    cena: 2099
+    liczba_opinii: 2
+    ocena: 4
+    status_opinii: mniej niż 50
+  Galaxy A35:
+    wyswietlacz: 6.6
+    pamiec_RAM: 6
+    pamiec_wbudowana: 128
+    aparat_foto: 50
+    cena: 1649
+    liczba_opinii: 0
+    ocena: 4
+    status_opinii: nie ma
+  Galaxy S24 Ultra:
+    wyswietlacz: 6.8
+    pamiec_RAM: 12
+    pamiec_wbudowana: 512
+    aparat_foto: 50
+    cena: 6599
+    liczba_opinii: 43
+    ocena: 5
+    status_opinii: mniej niż 50
+  Galaxy A54:
+    wyswietlacz: 6.4
+    pamiec_RAM: 8
+    pamiec_wbudowana: 128
+    aparat_foto: 50
+    cena: 2399
+    liczba_opinii: 192
+    ocena: 5
+    status_opinii: więcej niż 100
+  Galaxy A34:
+    wyswietlacz: 6.6
+    pamiec_RAM: 6
+    pamiec_wbudowana: 128
+    aparat_foto: 48
+    cena: 1899
+    liczba_opinii: 63
+    ocena: 5
+    status_opinii: 50-100
+  Galaxy A25:
+    wyswietlacz: 6.5
+    pamiec_RAM: 6
+    pamiec_wbudowana: 128
+    aparat_foto: 50
+    cena: 1099
+    liczba_opinii: 5
+    ocena: 4.5
+    status_opinii: mniej niż 50
+  Galaxy S23:
+    wyswietlacz: 6.1
+    pamiec_RAM: 8
+    pamiec_wbudowana: 256
+    aparat_foto: 50
+    cena: 3499
+    liczba_opinii: 164
+    ocena: 5
+    status_opinii: więcej niż 100
+  Galaxy S23+:
+    wyswietlacz: 6.6
+    pamiec_RAM: 8
+    pamiec_wbudowana: 256
+    aparat_foto: 50
+    cena: 4499
+    liczba_opinii: 8
+    ocena: 5
+    status_opinii: mniej niż 50
+  Galaxy S21 FE:     
+    wyswietlacz: 6.4
+    pamiec_RAM: 6
+    pamiec_wbudowana: 128
+    aparat_foto: 32
+    cena: 2999
+    liczba_opinii: 55
+    ocena: 4.5
+    status_opinii: 50-100
+  Galaxy M34:
+    wyswietlacz: 6.5
+    pamiec_RAM: 6
+    pamiec_wbudowana: 128
+    aparat_foto: 50
+    cena: 1199
+    liczba_opinii: 23
+    ocena: 5
+    status_opinii: mniej niż 50
+
+#
+# End of Alternatives Section
+################################
+
+################################
+# Goal Section
+#
+
+Goal:
+  name: Kup smartfon
+  preferences:
+    pairwise:
+      - [Wydajnosc, Styl, 9] 
+      - [Wydajnosc, Cena, 3]
+      - [Wydajnosc, Jakosc, 2]
+      - [Styl, Cena, 3]
+      - [Jakosc, Cena, 2]
+  children:
+    Wydajnosc:
+      preferences:
+        pairwise:
+          - [pamiec_RAM, pamiec_wbudowana, 4]
+      children:
+        pamiec_RAM:
+          preferences:
+            pairwiseFunction:
+              function(a1, a2) min(9, max(1/9, a1$pamiec_RAM/a2$pamiec_RAM))
+          children: *alternatives
+        pamiec_wbudowana:
+          preferences:
+            pairwiseFunction:
+              function(a1, a2) min(9, max(1/9, a1$pamiec_wbudowana/a2$pamiec_wbudowana))
+          children: *alternatives
+    Jakosc:
+      preferences:
+        pairwiseFunction:
+          function(a1, a2) min(9, max(1/9, a1$wyswietlacz/a2$wyswietlacz))
+      children: *alternatives
+    Styl:
+      preferences:
+        pairwiseFunction:
+          function(a1, a2) min(9, max(1/9, a1$aparat_foto/a2$aparat_foto))
+      children: *alternatives
+    Cena:
+      preferences:
+        pairwiseFunction:
+          function(a1, a2) min(9, max(1/9, a1$cena/a2$cena))
+      children: *alternatives
+
+#
+# End of Goal Section
+################################

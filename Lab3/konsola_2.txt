@@ -1,0 +1,1092 @@
+R version 4.3.3 (2024-02-29 ucrt) -- "Angel Food Cake"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R jest oprogramowaniem darmowym i dostarczany jest BEZ JAKIEJKOLWIEK GWARANCJI.
+Możesz go rozpowszechniać pod pewnymi warunkami.
+Wpisz 'license()' lub 'licence()' aby uzyskać szczegóły dystrybucji.
+
+R jest projektem kolaboracyjnym z wieloma uczestnikami.
+Wpisz 'contributors()' aby uzyskać więcej informacji oraz
+'citation()' aby dowiedzieć się jak cytować R lub pakiety R w publikacjach.
+
+Wpisz 'demo()' aby zobaczyć demo, 'help()' aby uzyskać pomoc on-line, lub
+'help.start()' aby uzyskać pomoc w przeglądarce HTML.
+Wpisz 'q()' aby wyjść z R.
+
+> setwd("C:/Users/mrbre/Desktop/Studia/APU/Lab3/")
+> install.packages("neuralnet")
+Instalowanie pakietu w ‘C:/Users/mrbre/AppData/Local/R/win-library/4.3’
+(ponieważ ‘lib’ nie jest określony)
+próbowanie adresu URL 'https://cran.rstudio.com/bin/windows/contrib/4.3/neuralnet_1.44.2.zip'
+Content type 'application/zip' length 123927 bytes (121 KB)
+downloaded 121 KB
+
+pakiet ‘neuralnet’ został pomyślnie rozpakowany oraz sumy MD5 zostały sprawdzone
+
+Pobrane pakiety binarne są w
+	C:\Users\mrbre\AppData\Local\Temp\RtmpCMOqV2\downloaded_packages
+> library("neuralnet")
+> traininginput <- as.data.frame(matrix(c(8,6,12,8,6,6,8,8,6,6,8,8,8,16,16,
++                                         128, 128, 512, 128, 128, 128, 256, 256, 128, 128, 128, 64, 64, 128, 128), nrow=15, ncol=2))
+> trainingoutput <- c(2099, 1649, 6599, 2399, 1899, 1099, 3499, 4499, 2999, 1199, 3999, 1599, 1999, 2599, 2999)
+> maxs <- apply(traininginput,2,max)
+> mins <- apply(traininginput,2,min)
+> scaled.traininginput <- as.data.frame(scale((traininginput), center = mins, scale = maxs - mins))
+> print(head(scaled.traininginput, 15))
+    V1        V2
+1  0.2 0.1428571
+2  0.0 0.1428571
+3  0.6 1.0000000
+4  0.2 0.1428571
+5  0.0 0.1428571
+6  0.0 0.1428571
+7  0.2 0.4285714
+8  0.2 0.4285714
+9  0.0 0.1428571
+10 0.0 0.1428571
+11 0.2 0.1428571
+12 0.2 0.0000000
+13 0.2 0.0000000
+14 1.0 0.1428571
+15 1.0 0.1428571
+> trainingdata <- cbind(scaled.traininginput, trainingoutput)
+> trainingdata <- cbind(scaled.traininginput, as.data.frame(scale(trainingoutput, center = min(trainingoutput), scale = max(trainingoutput - min(trainingoutput)))))
+> colnames(trainingdata) <- c("RAM", "Pamiec", "Cena")
+> print(trainingdata)
+   RAM    Pamiec       Cena
+1  0.2 0.1428571 0.18181818
+2  0.0 0.1428571 0.10000000
+3  0.6 1.0000000 1.00000000
+4  0.2 0.1428571 0.23636364
+5  0.0 0.1428571 0.14545455
+6  0.0 0.1428571 0.00000000
+7  0.2 0.4285714 0.43636364
+8  0.2 0.4285714 0.61818182
+9  0.0 0.1428571 0.34545455
+10 0.0 0.1428571 0.01818182
+11 0.2 0.1428571 0.52727273
+12 0.2 0.0000000 0.09090909
+13 0.2 0.0000000 0.16363636
+14 1.0 0.1428571 0.27272727
+15 1.0 0.1428571 0.34545455
+
+......
+
+net.mathfunc <- neuralnet(Cena ~ RAM+Pamiec, trainingdata, hidden = c(7,20,20,10,5), threshold = 0.001, stepmax = 1e7)
+print(net.mathfunc)
+
+[18,] -0.15214435  1.33550816  0.26554078  1.1279485 -2.7706639  0.5335328  0.78150644 -0.057793390
+[19,] -0.58825263  0.41541943  1.67784415 -0.4585728 -0.9545429  0.1634724  0.71340081  0.063553896
+[20,]  0.60449971 -1.06130157  0.92508849  0.6275574  2.0499052 -2.5258088  0.02642895  1.319048875
+[21,] -0.01335954  0.34914697  0.63231198  0.2920724  1.4682686  0.8198274  0.43483505 -0.116086923
+            [,9]       [,10]         [,11]       [,12]       [,13]       [,14]      [,15]       [,16]
+ [1,] -0.9256300 -1.01675911 -1.3790047888  0.26832731 -0.45907776 -0.15167578  0.1796255  0.41468991
+ [2,] -0.6979140 -0.92623963  1.6725292449 -0.04964198 -0.40131011  1.67848284 -0.1133177 -0.56979004
+ [3,]  0.1520164 -0.82554325 -0.3638121878  1.36334138  0.71108274  0.02539138 -0.5391405 -0.16501558
+ [4,] -1.2186648 -0.56437470  1.4709368864  0.38668277  0.29692854 -0.45425778 -1.1560475 -1.41940777
+ [5,] -1.5038850 -0.60521302  0.2427270187 -0.56272345 -0.24633695  0.79620689 -0.2939624  0.02227524
+ [6,] -0.9273383 -0.88855779 -0.5480221647  0.09254830 -0.61577210 -1.57613219 -1.8430062  0.08467578
+ [7,] -1.4837914 -1.16777853  0.6821673881 -0.85397125 -0.18097358  0.48941516 -1.7385109  1.59061261
+ [8,]  0.1173452 -0.76455481  0.0356355863 -1.23855540 -0.87126216 -0.10591735  0.3268286  2.20354658
+ [9,]  0.9583827 -1.02610582  0.1407505521  0.15297235 -1.20915650 -1.00766520 -0.2235086 -0.17150631
+[10,] -0.7576588  0.70968728  0.2144679405  1.81691454 -0.04689967  0.27547369  0.7856386  0.09256796
+[11,] -1.0065540  1.11946573 -0.2314149524  0.64811345 -0.70023930  1.05858251 -0.5904263  1.56609970
+[12,]  0.2488267  1.41120733  0.0006688037  0.83502780  0.41600263 -0.33592059  0.7835743 -0.02220351
+[13,] -1.1182086  0.04067246  1.3632655707 -0.63379755  0.22203179  0.48573498 -2.1358571  0.61465059
+[14,] -1.9987383 -2.06421905  0.4024099058 -1.19400532  0.38503203 -1.54947490 -0.7821569  1.26309851
+[15,] -1.0783769  1.02068735 -0.5312385100  1.69664689 -0.54326431 -0.31890465 -1.2452115 -1.26781443
+[16,]  1.0377596  0.52925267 -0.0790819444 -0.24846665 -1.68372289  0.12973676 -1.2544811  0.22736238
+[17,]  2.3503048  1.11524004  0.6840479649  0.94400746 -0.93663940  0.74646414  0.7020166  0.42467592
+[18,]  0.4650247  0.34396909 -0.2551154430  0.91535882  0.21741934 -0.67160773 -0.6443641 -0.60860726
+[19,] -0.8840250  1.75795854  1.2063552123  0.32598824  0.81482824 -1.37443884 -1.0345223  1.19417780
+[20,] -0.5376637 -1.78166916  0.7014773649  0.29818565 -0.72130510 -1.20117648  0.7204939 -0.17655711
+[21,]  0.3794492  0.47982600  0.0817650737  1.95763713 -0.36059130  0.98577713  0.5504448 -0.56877334
+             [,17]       [,18]       [,19]       [,20]
+ [1,]  1.039892180 -0.07954469  0.40976726  0.63669857
+ [2,]  2.093258273  0.30444102 -0.62244847  1.36302701
+ [3,] -0.171121876  0.22227781 -0.40643286  0.05949757
+ [4,] -0.264616814  0.43196791  0.59729476  0.60560973
+ [5,] -1.924438971  0.81440387  0.25022623  0.14950982
+ [6,]  0.658731189  1.34718852  0.11931426  0.95582887
+ [7,]  0.508490537  0.22977923  1.49290987  1.91787797
+ [8,] -1.829546324  1.80228774  0.54597035  0.04953211
+ [9,]  2.805245411 -0.42530007  0.07714871  0.09545842
+[10,]  1.259527848  0.34796946  0.60390211  0.05576537
+[11,] -0.254733521  0.09968042 -0.27653522 -1.16167899
+[12,]  1.149545492 -0.68468247  1.30929033  1.11910408
+[13,] -0.411598535  0.34985063 -0.06975024 -2.92192290
+[14,] -0.006991116  0.02799008  0.67372929 -0.58956395
+[15,]  0.372499884 -2.04863889 -0.57492923 -1.59495102
+[16,]  1.314084709  2.39147187  0.06083950 -0.00975419
+[17,] -0.824008689 -0.35513474 -0.91719072  0.73094482
+[18,] -2.030940896 -0.05408869  0.66857202 -1.98324720
+[19,]  0.875382725  0.15678373  0.07305778 -1.14059724
+[20,] -0.765900503 -1.00378835 -0.79883460  1.45466656
+[21,]  0.172366033 -0.94805130  0.86284174  0.77217624
+
+$startweights[[1]][[4]]
+             [,1]       [,2]        [,3]        [,4]        [,5]        [,6]       [,7]        [,8]
+ [1,] -0.55694673  0.9837763 -0.57966492 -1.38548939 -1.73258140  1.68432704 -0.4679840 -0.33539267
+ [2,] -0.94639548  1.7463291  0.21999251 -1.35257954 -0.58052488 -1.65468171  0.7032046 -0.75518940
+ [3,] -0.52551095 -0.3554970  0.65766285  1.03813303 -0.01930456  1.36463534 -1.8284458  0.33633517
+ [4,]  0.70492911  0.8802953 -0.57485004  0.51499595  0.97365857  2.82899856  0.2633302 -0.78952948
+ [5,] -0.15321292 -1.2680667 -0.62421586  1.11735660 -0.52437668 -0.57723028 -0.2160675 -0.03044967
+ [6,] -0.64448422 -0.2248496  1.28373772  0.18423628 -0.29126460 -0.64813605  0.4613724  0.91091644
+ [7,] -0.58335671  0.1449329 -1.69593280  0.68683531 -0.57415813 -2.09332695  1.5771126  0.73249565
+ [8,]  0.05792086 -0.0455843  0.30667250  0.47190526  0.01373038 -1.86112438 -2.1050397  0.04969272
+ [9,]  0.56518811 -0.3473323  1.02446720 -0.24666038 -2.28223797  1.67471977 -0.6675038 -1.46248617
+[10,] -0.99665717  1.1717658 -0.60986661 -1.85278010 -0.48103906  0.04983177 -2.4268545 -0.04526226
+[11,] -0.42092514  0.1797796 -0.02258389  0.81063444 -0.35615677  0.21936152 -1.3142923  0.21516441
+[12,]  0.34790517  0.4949982 -0.24295754  0.20077355 -0.25188578  0.54012931  1.0821820 -1.35201090
+[13,] -0.74833085 -0.9167088  0.83874556 -0.38969908  0.11724177  0.52425825  1.0259064  1.85312299
+[14,] -1.23421174 -1.0910620 -1.37313503 -0.46958788 -1.02261444  0.22393344 -1.1039927 -0.18062512
+[15,]  1.02097331  0.2174350  1.22125559 -0.23094556 -0.73667430  0.83901720  1.8817519 -1.64661216
+[16,] -0.18300745 -0.8243139  0.36952593 -1.62535081  0.94996133  0.60703221 -1.0794050 -1.91002932
+[17,]  1.46094837  1.5172774 -0.79174023 -0.24466538  2.10274436  0.61041358 -0.9645761 -0.53219661
+[18,]  0.97537130 -0.2099089  0.26307903  0.77382008 -0.66341591  0.09105119  1.8961309  0.67332541
+[19,]  0.56192383  0.8965076 -0.35195608 -0.09496706  1.53618668 -0.06903300 -0.1809447 -0.90864594
+[20,]  1.45440727  1.9034376  1.88558683 -1.42444520 -0.14618449 -0.52737240  0.1580189 -0.30590146
+[21,] -1.20109111 -1.6494748  1.65141116 -0.53370652  0.23496876  0.09746452  1.1574570 -0.03846250
+             [,9]       [,10]
+ [1,] -0.36039017  1.20358352
+ [2,] -0.09881460  0.98134661
+ [3,] -0.92307354  0.96645505
+ [4,] -0.66706158 -0.16636310
+ [5,] -1.11951523  1.49357658
+ [6,]  0.66135989  0.86252957
+ [7,] -1.45098355 -0.64904916
+ [8,] -0.46036986 -0.10004484
+ [9,] -0.07671488 -1.03681962
+[10,]  1.37838213  0.06788104
+[11,]  0.61497698  0.51255865
+[12,]  0.18609848  1.02976402
+[13,]  1.00825657  0.91799135
+[14,]  0.50945293  0.88286384
+[15,]  1.95424566 -1.11779613
+[16,]  0.02423835  0.47050498
+[17,]  0.06314749  0.28724865
+[18,] -1.00207988  1.49754395
+[19,]  1.13540670  0.64016168
+[20,] -1.05304698 -0.78266256
+[21,] -0.35243050 -0.12538944
+
+$startweights[[1]][[5]]
+            [,1]       [,2]       [,3]         [,4]        [,5]
+ [1,]  1.7754946 -0.2177531 -0.5699172  0.740138293 -2.30940695
+ [2,]  1.0819132 -0.9308070 -0.8108310 -0.960661013  1.33059702
+ [3,]  0.2037405 -0.1134265  1.7643434 -0.642317657  1.05360460
+ [4,] -0.7238677  0.6351075  1.1893611  0.005279697  0.11980186
+ [5,]  1.0984020  0.4906850  0.2791042  0.856082895  1.62208524
+ [6,] -0.9924794  0.2404452  0.3697220  0.309642967  2.21487474
+ [7,] -0.3663421  0.4124506 -0.7446535 -1.203067895  2.56248951
+ [8,] -0.1264054 -0.4133609 -0.1069173 -0.859100043  0.09934482
+ [9,] -1.5963517 -0.5549708 -0.1620298  0.314221655  0.47437116
+[10,] -0.8445463 -0.2743384  0.9020614  0.105671211 -1.48075315
+[11,] -2.5690785 -0.1083040 -2.3166463  0.068821412 -0.42836115
+
+$startweights[[1]][[6]]
+            [,1]
+[1,] -0.32113651
+[2,]  1.92105038
+[3,]  0.07140216
+[4,]  2.24175586
+[5,] -0.52201926
+[6,] -0.32376184
+
+
+
+$result.matrix
+                                [,1]
+error                   8.534941e-02
+reached.threshold       9.490074e-04
+steps                   1.090000e+02
+Intercept.to.1layhid1  -4.452220e-01
+RAM.to.1layhid1         6.495165e-01
+Pamiec.to.1layhid1     -2.071714e+00
+Intercept.to.1layhid2  -1.594009e+00
+RAM.to.1layhid2         2.800161e+00
+Pamiec.to.1layhid2     -2.578843e+00
+Intercept.to.1layhid3  -8.115669e-01
+RAM.to.1layhid3         1.692956e+00
+Pamiec.to.1layhid3      1.616976e+00
+Intercept.to.1layhid4  -2.006085e+00
+RAM.to.1layhid4         5.306823e-01
+Pamiec.to.1layhid4     -2.456582e+00
+Intercept.to.1layhid5  -2.814400e-01
+RAM.to.1layhid5        -3.918210e+00
+Pamiec.to.1layhid5      1.678442e+00
+Intercept.to.1layhid6  -2.514752e-03
+RAM.to.1layhid6        -4.886059e+00
+Pamiec.to.1layhid6     -8.490084e-01
+Intercept.to.1layhid7  -1.026633e+00
+RAM.to.1layhid7        -6.647142e-01
+Pamiec.to.1layhid7     -1.735582e+00
+Intercept.to.2layhid1  -6.089402e-01
+1layhid1.to.2layhid1   -1.041812e+00
+1layhid2.to.2layhid1   -1.468257e+00
+1layhid3.to.2layhid1    2.010529e+00
+1layhid4.to.2layhid1    4.411216e-01
+1layhid5.to.2layhid1    6.228288e-01
+1layhid6.to.2layhid1   -5.612317e-01
+1layhid7.to.2layhid1   -1.846338e+00
+Intercept.to.2layhid2  -2.015024e+00
+1layhid1.to.2layhid2    3.946220e-01
+1layhid2.to.2layhid2    3.198846e-01
+1layhid3.to.2layhid2    4.099506e+00
+1layhid4.to.2layhid2   -1.004791e+00
+1layhid5.to.2layhid2    7.441195e-01
+1layhid6.to.2layhid2   -7.894584e-01
+1layhid7.to.2layhid2   -1.850507e-01
+Intercept.to.2layhid3   2.244173e-01
+1layhid1.to.2layhid3    5.820580e-01
+1layhid2.to.2layhid3   -5.639777e-01
+1layhid3.to.2layhid3   -1.768161e+00
+1layhid4.to.2layhid3    1.929913e+00
+1layhid5.to.2layhid3    3.107541e+00
+1layhid6.to.2layhid3    2.597217e-01
+1layhid7.to.2layhid3   -8.978788e-01
+Intercept.to.2layhid4  -1.832070e-01
+1layhid1.to.2layhid4   -8.726971e-01
+1layhid2.to.2layhid4    4.009664e-01
+1layhid3.to.2layhid4    1.532405e+00
+1layhid4.to.2layhid4   -8.687333e-01
+1layhid5.to.2layhid4   -1.720408e+00
+1layhid6.to.2layhid4   -4.618842e-01
+1layhid7.to.2layhid4   -2.141831e+00
+Intercept.to.2layhid5   3.075728e-01
+1layhid1.to.2layhid5   -9.278961e-01
+1layhid2.to.2layhid5   -5.932427e-01
+1layhid3.to.2layhid5    1.701227e+00
+1layhid4.to.2layhid5   -1.042341e+00
+1layhid5.to.2layhid5   -8.688664e-01
+1layhid6.to.2layhid5    2.519074e-01
+1layhid7.to.2layhid5    1.746297e+00
+Intercept.to.2layhid6   6.409660e-02
+1layhid1.to.2layhid6    1.005219e+00
+1layhid2.to.2layhid6   -3.654165e+00
+1layhid3.to.2layhid6    1.507878e+00
+1layhid4.to.2layhid6   -9.842658e-01
+1layhid5.to.2layhid6   -1.695008e+00
+1layhid6.to.2layhid6   -3.102709e-01
+1layhid7.to.2layhid6   -8.516632e-01
+Intercept.to.2layhid7  -6.517565e-01
+1layhid1.to.2layhid7   -3.890183e-01
+1layhid2.to.2layhid7   -1.490033e-01
+1layhid3.to.2layhid7   -1.540402e-01
+1layhid4.to.2layhid7   -1.157768e+00
+1layhid5.to.2layhid7   -2.117825e-01
+1layhid6.to.2layhid7   -1.591373e+00
+1layhid7.to.2layhid7   -6.054238e-01
+Intercept.to.2layhid8   7.433108e-01
+1layhid1.to.2layhid8    5.940326e-01
+1layhid2.to.2layhid8   -8.155806e-01
+1layhid3.to.2layhid8   -1.964478e+00
+1layhid4.to.2layhid8    7.241022e-01
+1layhid5.to.2layhid8   -5.339946e-01
+1layhid6.to.2layhid8    5.710219e-01
+1layhid7.to.2layhid8   -6.068622e-02
+Intercept.to.2layhid9  -1.317365e+00
+1layhid1.to.2layhid9    1.541890e+00
+1layhid2.to.2layhid9    1.796524e+00
+1layhid3.to.2layhid9   -1.752814e+00
+1layhid4.to.2layhid9    9.279598e-01
+1layhid5.to.2layhid9   -6.085496e-02
+1layhid6.to.2layhid9   -2.876133e+00
+1layhid7.to.2layhid9   -7.954715e-01
+Intercept.to.2layhid10  6.843021e-01
+1layhid1.to.2layhid10  -9.115541e-01
+1layhid2.to.2layhid10  -1.064915e+00
+1layhid3.to.2layhid10  -1.006413e+00
+1layhid4.to.2layhid10  -1.316945e+00
+1layhid5.to.2layhid10   3.327969e-01
+1layhid6.to.2layhid10   6.094041e-01
+1layhid7.to.2layhid10   8.420341e-01
+Intercept.to.2layhid11 -9.169720e-01
+1layhid1.to.2layhid11  -2.434240e+00
+1layhid2.to.2layhid11   4.189507e+00
+1layhid3.to.2layhid11   8.870720e-01
+1layhid4.to.2layhid11  -3.227321e+00
+1layhid5.to.2layhid11  -1.751496e+00
+1layhid6.to.2layhid11  -2.509753e+00
+1layhid7.to.2layhid11  -1.749572e+00
+Intercept.to.2layhid12 -6.377725e-01
+1layhid1.to.2layhid12  -1.442193e+00
+1layhid2.to.2layhid12   9.308707e-01
+1layhid3.to.2layhid12  -1.629264e+00
+1layhid4.to.2layhid12  -2.543242e+00
+1layhid5.to.2layhid12  -6.422911e-01
+1layhid6.to.2layhid12  -1.012211e+00
+1layhid7.to.2layhid12  -9.545041e-01
+Intercept.to.2layhid13  5.282554e-01
+1layhid1.to.2layhid13  -1.210232e+00
+1layhid2.to.2layhid13   9.643793e-01
+1layhid3.to.2layhid13  -1.024067e+00
+1layhid4.to.2layhid13   4.480917e-01
+1layhid5.to.2layhid13  -6.543184e-01
+1layhid6.to.2layhid13  -1.117508e+00
+1layhid7.to.2layhid13  -2.239395e-01
+Intercept.to.2layhid14 -1.709798e+00
+1layhid1.to.2layhid14   9.522681e-01
+1layhid2.to.2layhid14  -2.653226e-02
+1layhid3.to.2layhid14   8.062717e-01
+1layhid4.to.2layhid14   2.568281e+00
+1layhid5.to.2layhid14  -8.993254e-01
+1layhid6.to.2layhid14  -1.283009e+00
+1layhid7.to.2layhid14  -9.466847e-01
+Intercept.to.2layhid15  5.947468e-01
+1layhid1.to.2layhid15  -5.606286e-01
+1layhid2.to.2layhid15  -8.385194e-01
+1layhid3.to.2layhid15   5.327102e-01
+1layhid4.to.2layhid15  -2.896270e+00
+1layhid5.to.2layhid15   6.551909e-01
+1layhid6.to.2layhid15  -3.258008e+00
+1layhid7.to.2layhid15  -2.679827e-01
+Intercept.to.2layhid16  8.584302e-01
+1layhid1.to.2layhid16  -8.507414e-01
+1layhid2.to.2layhid16  -1.194078e+00
+1layhid3.to.2layhid16  -4.428983e-02
+1layhid4.to.2layhid16  -2.460795e-01
+1layhid5.to.2layhid16   3.562532e-01
+1layhid6.to.2layhid16  -4.082280e-01
+1layhid7.to.2layhid16   7.198451e-01
+Intercept.to.2layhid17  6.202022e-01
+1layhid1.to.2layhid17  -1.068703e+00
+1layhid2.to.2layhid17  -5.329524e-01
+1layhid3.to.2layhid17   1.214904e-01
+1layhid4.to.2layhid17   6.584787e-01
+1layhid5.to.2layhid17   1.880138e+00
+1layhid6.to.2layhid17   2.745289e-01
+1layhid7.to.2layhid17  -5.191672e-01
+Intercept.to.2layhid18 -7.523185e-01
+1layhid1.to.2layhid18  -2.493684e+00
+1layhid2.to.2layhid18  -1.363484e+00
+1layhid3.to.2layhid18  -2.379689e+00
+1layhid4.to.2layhid18  -2.935377e+00
+1layhid5.to.2layhid18  -5.527586e-01
+1layhid6.to.2layhid18  -1.041260e+00
+1layhid7.to.2layhid18  -1.086942e+00
+Intercept.to.2layhid19  1.833577e+00
+1layhid1.to.2layhid19   2.538043e+00
+1layhid2.to.2layhid19  -1.076862e+00
+1layhid3.to.2layhid19  -1.192314e+00
+1layhid4.to.2layhid19  -6.397873e-01
+1layhid5.to.2layhid19  -7.134458e-01
+1layhid6.to.2layhid19   9.635961e-01
+1layhid7.to.2layhid19  -6.526370e-01
+Intercept.to.2layhid20  1.024143e+00
+1layhid1.to.2layhid20   1.981836e+00
+1layhid2.to.2layhid20   4.868546e-01
+1layhid3.to.2layhid20  -8.043923e-01
+1layhid4.to.2layhid20   3.406340e-01
+1layhid5.to.2layhid20  -6.542910e-01
+1layhid6.to.2layhid20  -1.894844e+00
+1layhid7.to.2layhid20   1.780923e-01
+Intercept.to.3layhid1   1.197165e+00
+2layhid1.to.3layhid1    1.377908e+00
+2layhid2.to.3layhid1    8.569204e-01
+2layhid3.to.3layhid1   -1.425563e+00
+2layhid4.to.3layhid1    1.738031e-01
+2layhid5.to.3layhid1   -8.624445e-01
+2layhid6.to.3layhid1   -1.586127e-01
+2layhid7.to.3layhid1   -9.738308e-01
+2layhid8.to.3layhid1   -1.205068e+00
+2layhid9.to.3layhid1   -2.169083e-01
+2layhid10.to.3layhid1  -3.473664e-01
+2layhid11.to.3layhid1   2.217089e+00
+2layhid12.to.3layhid1   2.174592e+00
+2layhid13.to.3layhid1   9.283158e-01
+2layhid14.to.3layhid1   6.314030e-01
+2layhid15.to.3layhid1  -3.984669e-01
+2layhid16.to.3layhid1  -1.106295e+00
+2layhid17.to.3layhid1   3.956374e-02
+2layhid18.to.3layhid1  -3.954631e-01
+2layhid19.to.3layhid1   7.949966e-01
+2layhid20.to.3layhid1   1.771281e-01
+Intercept.to.3layhid2   1.524516e+00
+2layhid1.to.3layhid2   -1.010992e-01
+2layhid2.to.3layhid2    4.724024e-01
+2layhid3.to.3layhid2    2.337852e+00
+2layhid4.to.3layhid2    8.167945e-01
+2layhid5.to.3layhid2    9.288635e-01
+2layhid6.to.3layhid2    3.159063e-01
+2layhid7.to.3layhid2    1.393454e+00
+2layhid8.to.3layhid2    1.992452e-01
+2layhid9.to.3layhid2   -9.197029e-01
+2layhid10.to.3layhid2   3.647415e-01
+2layhid11.to.3layhid2   1.734280e+00
+2layhid12.to.3layhid2   2.463881e+00
+2layhid13.to.3layhid2   1.515012e+00
+2layhid14.to.3layhid2  -6.649641e-01
+2layhid15.to.3layhid2   1.860604e+00
+2layhid16.to.3layhid2   2.120570e+00
+2layhid17.to.3layhid2   2.184479e+00
+2layhid18.to.3layhid2   1.210603e+00
+2layhid19.to.3layhid2   4.794037e-01
+2layhid20.to.3layhid2   1.896223e+00
+Intercept.to.3layhid3  -2.724069e+00
+2layhid1.to.3layhid3   -4.073350e-01
+2layhid2.to.3layhid3   -1.384461e+00
+2layhid3.to.3layhid3    1.313417e-01
+2layhid4.to.3layhid3    6.560476e-02
+2layhid5.to.3layhid3    1.318077e+00
+2layhid6.to.3layhid3   -5.849198e-02
+2layhid7.to.3layhid3    2.585548e-01
+2layhid8.to.3layhid3   -5.866301e-01
+2layhid9.to.3layhid3    1.194563e+00
+2layhid10.to.3layhid3   1.435613e+00
+2layhid11.to.3layhid3  -1.850461e+00
+2layhid12.to.3layhid3   1.155394e+00
+2layhid13.to.3layhid3   3.063571e-01
+2layhid14.to.3layhid3   6.378536e-02
+2layhid15.to.3layhid3   1.202313e+00
+2layhid16.to.3layhid3  -2.554865e-01
+2layhid17.to.3layhid3  -6.096765e-02
+2layhid18.to.3layhid3   1.460334e+00
+2layhid19.to.3layhid3   8.865439e-01
+2layhid20.to.3layhid3   5.942286e-01
+Intercept.to.3layhid4  -2.498632e+00
+2layhid1.to.3layhid4   -1.439333e+00
+2layhid2.to.3layhid4    1.884448e-01
+2layhid3.to.3layhid4    2.924869e-01
+2layhid4.to.3layhid4    5.698618e-01
+2layhid5.to.3layhid4    8.245216e-01
+2layhid6.to.3layhid4   -6.725593e-01
+2layhid7.to.3layhid4   -6.586821e-01
+2layhid8.to.3layhid4   -1.120669e-01
+2layhid9.to.3layhid4    6.134518e-01
+2layhid10.to.3layhid4   1.845774e-01
+2layhid11.to.3layhid4   7.870310e-01
+2layhid12.to.3layhid4   4.743630e-01
+2layhid13.to.3layhid4   1.214473e+00
+2layhid14.to.3layhid4   4.037958e-01
+2layhid15.to.3layhid4  -5.353711e-01
+2layhid16.to.3layhid4  -8.356107e-01
+2layhid17.to.3layhid4   1.131579e+00
+2layhid18.to.3layhid4  -4.556388e-01
+2layhid19.to.3layhid4   6.335810e-01
+2layhid20.to.3layhid4   2.979094e-01
+Intercept.to.3layhid5  -7.253908e-01
+2layhid1.to.3layhid5   -1.122273e+00
+2layhid2.to.3layhid5   -1.667808e+00
+2layhid3.to.3layhid5    1.019907e+00
+2layhid4.to.3layhid5    2.391109e+00
+2layhid5.to.3layhid5   -6.987939e-01
+2layhid6.to.3layhid5    1.890826e+00
+2layhid7.to.3layhid5    1.453546e+00
+2layhid8.to.3layhid5    8.395799e-01
+2layhid9.to.3layhid5   -1.657913e+00
+2layhid10.to.3layhid5  -2.863993e-01
+2layhid11.to.3layhid5  -1.495170e+00
+2layhid12.to.3layhid5   4.493094e-01
+2layhid13.to.3layhid5   5.125708e-01
+2layhid14.to.3layhid5  -1.170822e+00
+2layhid15.to.3layhid5  -9.499651e-01
+2layhid16.to.3layhid5  -6.235897e-01
+2layhid17.to.3layhid5  -2.826924e+00
+2layhid18.to.3layhid5  -1.013049e+00
+2layhid19.to.3layhid5   1.966042e+00
+2layhid20.to.3layhid5   1.382211e+00
+Intercept.to.3layhid6  -1.295795e+00
+2layhid1.to.3layhid6   -5.200460e-01
+2layhid2.to.3layhid6   -9.765772e-01
+2layhid3.to.3layhid6   -3.141513e+00
+2layhid4.to.3layhid6   -8.711408e-01
+2layhid5.to.3layhid6    9.758692e-02
+2layhid6.to.3layhid6   -1.990839e+00
+2layhid7.to.3layhid6   -1.770394e-01
+2layhid8.to.3layhid6    3.574832e-01
+2layhid9.to.3layhid6    1.350444e+00
+2layhid10.to.3layhid6  -1.503633e+00
+2layhid11.to.3layhid6   3.022770e+00
+2layhid12.to.3layhid6  -1.669321e+00
+2layhid13.to.3layhid6   7.135228e-01
+2layhid14.to.3layhid6  -1.684920e+00
+2layhid15.to.3layhid6   1.283001e-01
+2layhid16.to.3layhid6  -8.788357e-01
+2layhid17.to.3layhid6  -2.438418e-01
+2layhid18.to.3layhid6  -1.163113e+00
+2layhid19.to.3layhid6  -3.222090e+00
+2layhid20.to.3layhid6   5.457606e-01
+Intercept.to.3layhid7  -5.175197e-01
+2layhid1.to.3layhid7    1.612813e-01
+2layhid2.to.3layhid7   -8.714701e-01
+2layhid3.to.3layhid7    9.931862e-01
+2layhid4.to.3layhid7   -3.965485e-01
+2layhid5.to.3layhid7   -2.386494e-01
+2layhid6.to.3layhid7   -4.912136e-01
+2layhid7.to.3layhid7   -2.587834e-02
+2layhid8.to.3layhid7    1.051331e+00
+2layhid9.to.3layhid7    8.184597e-01
+2layhid10.to.3layhid7  -3.879785e-01
+2layhid11.to.3layhid7   9.031601e-01
+2layhid12.to.3layhid7  -8.358997e-01
+2layhid13.to.3layhid7  -5.501107e-01
+2layhid14.to.3layhid7  -1.081249e+00
+2layhid15.to.3layhid7  -9.503045e-01
+2layhid16.to.3layhid7   1.976134e-01
+2layhid17.to.3layhid7   6.843415e-01
+2layhid18.to.3layhid7   6.382215e-01
+2layhid19.to.3layhid7   6.147568e-02
+2layhid20.to.3layhid7   4.677713e-01
+Intercept.to.3layhid8   1.227711e+00
+2layhid1.to.3layhid8    3.333842e+00
+2layhid2.to.3layhid8    1.525488e+00
+2layhid3.to.3layhid8   -3.520647e+00
+2layhid4.to.3layhid8    4.098888e+00
+2layhid5.to.3layhid8   -9.905844e-01
+2layhid6.to.3layhid8    2.024312e+00
+2layhid7.to.3layhid8   -1.476685e-01
+2layhid8.to.3layhid8   -5.921793e+00
+2layhid9.to.3layhid8   -3.238672e+00
+2layhid10.to.3layhid8  -1.541917e+00
+2layhid11.to.3layhid8   2.328980e+00
+2layhid12.to.3layhid8   1.199158e+00
+2layhid13.to.3layhid8   3.627859e-01
+2layhid14.to.3layhid8  -1.855431e+00
+2layhid15.to.3layhid8   3.265476e+00
+2layhid16.to.3layhid8  -7.577451e-01
+2layhid17.to.3layhid8  -6.380650e-02
+2layhid18.to.3layhid8   1.762946e+00
+2layhid19.to.3layhid8   1.292531e+00
+2layhid20.to.3layhid8  -5.637086e-01
+Intercept.to.3layhid9  -9.414860e-01
+2layhid1.to.3layhid9   -6.710353e-01
+2layhid2.to.3layhid9    1.510889e-01
+2layhid3.to.3layhid9   -1.551178e+00
+2layhid4.to.3layhid9   -1.438879e+00
+2layhid5.to.3layhid9   -9.289410e-01
+2layhid6.to.3layhid9   -1.480228e+00
+2layhid7.to.3layhid9    1.164190e-01
+2layhid8.to.3layhid9    8.817754e-01
+2layhid9.to.3layhid9   -7.727721e-01
+2layhid10.to.3layhid9  -1.048983e+00
+2layhid11.to.3layhid9   2.389616e-01
+2layhid12.to.3layhid9  -1.191015e+00
+2layhid13.to.3layhid9  -2.013394e+00
+2layhid14.to.3layhid9  -1.088322e+00
+2layhid15.to.3layhid9   1.040258e+00
+2layhid16.to.3layhid9   2.334458e+00
+2layhid17.to.3layhid9   4.587418e-01
+2layhid18.to.3layhid9  -8.876623e-01
+2layhid19.to.3layhid9  -5.535166e-01
+2layhid20.to.3layhid9   3.636896e-01
+Intercept.to.3layhid10 -1.014304e+00
+2layhid1.to.3layhid10  -8.350829e-01
+2layhid2.to.3layhid10  -8.077593e-01
+2layhid3.to.3layhid10  -5.706415e-01
+2layhid4.to.3layhid10  -5.237079e-01
+2layhid5.to.3layhid10  -8.664890e-01
+2layhid6.to.3layhid10  -1.074626e+00
+2layhid7.to.3layhid10  -7.409964e-01
+2layhid8.to.3layhid10  -1.032388e+00
+2layhid9.to.3layhid10   7.120731e-01
+2layhid10.to.3layhid10  1.122618e+00
+2layhid11.to.3layhid10  1.453794e+00
+2layhid12.to.3layhid10  4.313793e-02
+2layhid13.to.3layhid10 -2.046435e+00
+2layhid14.to.3layhid10  1.077961e+00
+2layhid15.to.3layhid10  6.111109e-01
+2layhid16.to.3layhid10  1.132940e+00
+2layhid17.to.3layhid10  3.659228e-01
+2layhid18.to.3layhid10  1.784713e+00
+2layhid19.to.3layhid10 -1.779427e+00
+2layhid20.to.3layhid10  4.786637e-01
+Intercept.to.3layhid11 -1.384859e+00
+2layhid1.to.3layhid11   1.676093e+00
+2layhid2.to.3layhid11  -3.694272e-01
+2layhid3.to.3layhid11   1.393407e+00
+2layhid4.to.3layhid11   2.649139e-01
+2layhid5.to.3layhid11  -5.536417e-01
+2layhid6.to.3layhid11   6.857317e-01
+2layhid7.to.3layhid11   3.479740e-02
+2layhid8.to.3layhid11   6.319292e-02
+2layhid9.to.3layhid11   1.997291e-01
+2layhid10.to.3layhid11 -2.721124e-01
+2layhid11.to.3layhid11 -9.196538e-03
+2layhid12.to.3layhid11  1.292281e+00
+2layhid13.to.3layhid11  3.967928e-01
+2layhid14.to.3layhid11 -5.410886e-01
+2layhid15.to.3layhid11 -7.595674e-02
+2layhid16.to.3layhid11  6.781936e-01
+2layhid17.to.3layhid11 -2.615211e-01
+2layhid18.to.3layhid11  1.202725e+00
+2layhid19.to.3layhid11  6.848459e-01
+2layhid20.to.3layhid11  6.643272e-02
+Intercept.to.3layhid12  9.878694e-01
+2layhid1.to.3layhid12   5.178246e-01
+2layhid2.to.3layhid12   1.892004e+00
+2layhid3.to.3layhid12   9.707635e-01
+2layhid4.to.3layhid12   3.683372e-01
+2layhid5.to.3layhid12   7.620400e-01
+2layhid6.to.3layhid12  -2.994945e-01
+2layhid7.to.3layhid12  -7.123719e-01
+2layhid8.to.3layhid12   8.725145e-01
+2layhid9.to.3layhid12   2.363649e+00
+2layhid10.to.3layhid12  1.317605e+00
+2layhid11.to.3layhid12  1.708228e+00
+2layhid12.to.3layhid12  7.828999e-03
+2layhid13.to.3layhid12 -6.654121e-01
+2layhid14.to.3layhid12  2.628772e+00
+2layhid15.to.3layhid12  2.782658e-01
+2layhid16.to.3layhid12  1.613499e+00
+2layhid17.to.3layhid12  1.584851e+00
+2layhid18.to.3layhid12  8.912805e-01
+2layhid19.to.3layhid12  1.017728e+00
+2layhid20.to.3layhid12  2.549828e+00
+Intercept.to.3layhid13  6.084705e-02
+2layhid1.to.3layhid13  -3.279426e-01
+2layhid2.to.3layhid13   9.693122e-01
+2layhid3.to.3layhid13   8.234210e-01
+2layhid4.to.3layhid13  -1.606771e-01
+2layhid5.to.3layhid13  -1.390985e-01
+2layhid6.to.3layhid13   3.979302e-02
+2layhid7.to.3layhid13  -7.856292e-01
+2layhid8.to.3layhid13  -6.909013e-01
+2layhid9.to.3layhid13   4.238887e-01
+2layhid10.to.3layhid13 -2.852592e-01
+2layhid11.to.3layhid13  5.771009e-01
+2layhid12.to.3layhid13  6.964662e-01
+2layhid13.to.3layhid13  8.592416e-01
+2layhid14.to.3layhid13 -3.821687e-01
+2layhid15.to.3layhid13 -1.598063e+00
+2layhid16.to.3layhid13 -4.167203e-01
+2layhid17.to.3layhid13  7.445901e-01
+2layhid18.to.3layhid13  1.188205e+00
+2layhid19.to.3layhid13 -2.021403e-01
+2layhid20.to.3layhid13  1.296191e-01
+Intercept.to.3layhid14 -6.089995e-02
+2layhid1.to.3layhid14   1.921791e+00
+2layhid2.to.3layhid14   1.166166e-01
+2layhid3.to.3layhid14  -4.507968e-01
+2layhid4.to.3layhid14   9.250070e-01
+2layhid5.to.3layhid14  -1.485010e+00
+2layhid6.to.3layhid14   8.553855e-01
+2layhid7.to.3layhid14  -1.468899e-02
+2layhid8.to.3layhid14  -1.004513e+00
+2layhid9.to.3layhid14   3.570727e-01
+2layhid10.to.3layhid14  1.084632e+00
+2layhid11.to.3layhid14 -2.539320e-01
+2layhid12.to.3layhid14  5.126336e-01
+2layhid13.to.3layhid14 -1.458559e+00
+2layhid14.to.3layhid14 -2.319832e-01
+2layhid15.to.3layhid14  2.585627e-01
+2layhid16.to.3layhid14  8.372439e-01
+2layhid17.to.3layhid14 -5.829081e-01
+2layhid18.to.3layhid14 -1.274042e+00
+2layhid19.to.3layhid14 -1.175170e+00
+2layhid20.to.3layhid14  1.010847e+00
+Intercept.to.3layhid15  6.964890e-01
+2layhid1.to.3layhid15  -4.610093e-01
+2layhid2.to.3layhid15  -4.422878e-02
+2layhid3.to.3layhid15  -3.768704e-01
+2layhid4.to.3layhid15  -1.027053e+00
+2layhid5.to.3layhid15  -1.334188e+00
+2layhid6.to.3layhid15  -1.327244e+00
+2layhid7.to.3layhid15   7.991564e-01
+2layhid8.to.3layhid15   5.533609e-01
+2layhid9.to.3layhid15   1.308111e+00
+2layhid10.to.3layhid15  1.449694e-01
+2layhid11.to.3layhid15  1.227226e+00
+2layhid12.to.3layhid15 -1.418222e+00
+2layhid13.to.3layhid15 -2.656123e-01
+2layhid14.to.3layhid15 -7.947152e-01
+2layhid15.to.3layhid15 -9.297820e-01
+2layhid16.to.3layhid15  1.218880e+00
+2layhid17.to.3layhid15  8.953843e-02
+2layhid18.to.3layhid15 -3.079266e-01
+2layhid19.to.3layhid15  1.454290e+00
+2layhid20.to.3layhid15  1.284151e+00
+Intercept.to.3layhid16  2.057149e-01
+2layhid1.to.3layhid16  -6.133888e-01
+2layhid2.to.3layhid16  -3.159605e-01
+2layhid3.to.3layhid16  -1.630511e+00
+2layhid4.to.3layhid16   3.022177e-03
+2layhid5.to.3layhid16  -1.139471e-01
+2layhid6.to.3layhid16   1.455767e+00
+2layhid7.to.3layhid16   2.054524e+00
+2layhid8.to.3layhid16  -3.823472e-01
+2layhid9.to.3layhid16  -1.656603e-01
+2layhid10.to.3layhid16  1.355007e+00
+2layhid11.to.3layhid16 -4.331910e-02
+2layhid12.to.3layhid16  4.160511e-01
+2layhid13.to.3layhid16  1.064565e+00
+2layhid14.to.3layhid16 -1.318431e+00
+2layhid15.to.3layhid16  1.789166e-01
+2layhid16.to.3layhid16  2.156311e-01
+2layhid17.to.3layhid16 -8.076124e-01
+2layhid18.to.3layhid16  1.003713e+00
+2layhid19.to.3layhid16 -3.859015e-01
+2layhid20.to.3layhid16 -7.777898e-01
+Intercept.to.3layhid17  1.013000e+00
+2layhid1.to.3layhid17   1.727779e+00
+2layhid2.to.3layhid17  -1.986880e-01
+2layhid3.to.3layhid17  -2.323436e-01
+2layhid4.to.3layhid17  -2.168256e+00
+2layhid5.to.3layhid17   6.318367e-01
+2layhid6.to.3layhid17   3.861918e-01
+2layhid7.to.3layhid17  -1.869504e+00
+2layhid8.to.3layhid17   2.808461e+00
+2layhid9.to.3layhid17   1.234221e+00
+2layhid10.to.3layhid17 -2.582016e-01
+2layhid11.to.3layhid17  1.062518e+00
+2layhid12.to.3layhid17 -4.201137e-01
+2layhid13.to.3layhid17 -3.389342e-02
+2layhid14.to.3layhid17  2.808649e-01
+2layhid15.to.3layhid17  1.142495e+00
+2layhid16.to.3layhid17 -8.509032e-01
+2layhid17.to.3layhid17 -2.057680e+00
+2layhid18.to.3layhid17  8.436347e-01
+2layhid19.to.3layhid17 -7.743142e-01
+2layhid20.to.3layhid17  1.688147e-01
+Intercept.to.3layhid18 -8.579314e-02
+2layhid1.to.3layhid18   3.079710e-01
+2layhid2.to.3layhid18   2.166641e-01
+2layhid3.to.3layhid18   2.773011e-01
+2layhid4.to.3layhid18   8.396834e-01
+2layhid5.to.3layhid18   1.343383e+00
+2layhid6.to.3layhid18   2.286744e-01
+2layhid7.to.3layhid18   1.798560e+00
+2layhid8.to.3layhid18  -7.447778e-01
+2layhid9.to.3layhid18   3.422768e-01
+2layhid10.to.3layhid18  6.044590e-02
+2layhid11.to.3layhid18 -6.855979e-01
+2layhid12.to.3layhid18  3.032839e-01
+2layhid13.to.3layhid18  2.215866e-02
+2layhid14.to.3layhid18 -2.049565e+00
+2layhid15.to.3layhid18  2.395042e+00
+2layhid16.to.3layhid18 -3.613832e-01
+2layhid17.to.3layhid18 -9.478003e-02
+2layhid18.to.3layhid18  1.535708e-01
+2layhid19.to.3layhid18 -1.050388e+00
+2layhid20.to.3layhid18 -9.945670e-01
+Intercept.to.3layhid19  3.702022e-01
+2layhid1.to.3layhid19  -5.088655e-01
+2layhid2.to.3layhid19  -4.351142e-01
+2layhid3.to.3layhid19   2.692252e-01
+2layhid4.to.3layhid19   3.616794e-01
+2layhid5.to.3layhid19   7.986978e-02
+2layhid6.to.3layhid19   1.541496e+00
+2layhid7.to.3layhid19   5.531077e-01
+2layhid8.to.3layhid19  -2.509209e-01
+2layhid9.to.3layhid19   5.762231e-01
+2layhid10.to.3layhid19 -6.041859e-01
+2layhid11.to.3layhid19  1.399461e+00
+2layhid12.to.3layhid19 -3.923788e-01
+2layhid13.to.3layhid19  6.415214e-01
+2layhid14.to.3layhid19 -4.851022e-01
+2layhid15.to.3layhid19  1.725711e-01
+2layhid16.to.3layhid19 -9.566352e-01
+2layhid17.to.3layhid19  6.296188e-01
+2layhid18.to.3layhid19  6.803360e-02
+2layhid19.to.3layhid19 -8.383106e-01
+2layhid20.to.3layhid19  8.252937e-01
+Intercept.to.3layhid20  2.156157e+00
+2layhid1.to.3layhid20   1.676851e+00
+2layhid2.to.3layhid20   1.797330e+00
+2layhid3.to.3layhid20   2.069145e+00
+2layhid4.to.3layhid20   1.805520e+00
+2layhid5.to.3layhid20   1.904429e+00
+2layhid6.to.3layhid20   2.231702e+00
+2layhid7.to.3layhid20   9.132487e-01
+2layhid8.to.3layhid20   2.098844e+00
+2layhid9.to.3layhid20   4.392106e+00
+2layhid10.to.3layhid20 -9.814353e-02
+2layhid11.to.3layhid20  3.019077e+00
+2layhid12.to.3layhid20 -2.533022e+00
+2layhid13.to.3layhid20  1.004911e+00
+2layhid14.to.3layhid20  3.291018e-01
+2layhid15.to.3layhid20  1.377000e+00
+2layhid16.to.3layhid20  2.073868e+00
+2layhid17.to.3layhid20 -1.096247e+00
+2layhid18.to.3layhid20 -6.479102e-01
+2layhid19.to.3layhid20  2.518202e+00
+2layhid20.to.3layhid20  2.488667e+00
+Intercept.to.4layhid1  -1.114266e+00
+3layhid1.to.4layhid1   -2.645776e+00
+3layhid2.to.4layhid1   -1.082830e+00
+3layhid3.to.4layhid1    1.584033e-01
+3layhid4.to.4layhid1   -4.181799e-01
+3layhid5.to.4layhid1   -7.828235e-01
+3layhid6.to.4layhid1   -1.009121e+00
+3layhid7.to.4layhid1   -3.432161e-01
+3layhid8.to.4layhid1   -4.598031e-01
+3layhid9.to.4layhid1   -1.217571e+00
+3layhid10.to.4layhid1  -6.760326e-01
+3layhid11.to.4layhid1  -2.094138e-01
+3layhid12.to.4layhid1  -1.305650e+00
+3layhid13.to.4layhid1  -1.499179e+00
+3layhid14.to.4layhid1  -4.513488e-01
+3layhid15.to.4layhid1  -7.318181e-01
+3layhid16.to.4layhid1   3.158097e-01
+3layhid17.to.4layhid1   4.180523e-01
+3layhid18.to.4layhid1  -9.140302e-01
+3layhid19.to.4layhid1   8.735463e-01
+3layhid20.to.4layhid1  -1.758410e+00
+Intercept.to.4layhid2   9.774832e-01
+3layhid1.to.4layhid2    1.740715e+00
+3layhid2.to.4layhid2   -3.617900e-01
+3layhid3.to.4layhid2    8.761506e-01
+3layhid4.to.4layhid2   -1.283877e+00
+3layhid5.to.4layhid2   -6.854888e-01
+3layhid6.to.4layhid2    4.322217e-02
+3layhid7.to.4layhid2   -5.187212e-02
+3layhid8.to.4layhid2   -3.529813e-01
+3layhid9.to.4layhid2    1.097488e+00
+3layhid10.to.4layhid2   1.632460e-01
+3layhid11.to.4layhid2   4.908609e-01
+3layhid12.to.4layhid2  -9.230019e-01
+3layhid13.to.4layhid2  -1.097355e+00
+3layhid14.to.4layhid2   2.206231e-01
+3layhid15.to.4layhid2  -8.306070e-01
+3layhid16.to.4layhid2   1.516154e+00
+3layhid17.to.4layhid2  -2.157554e-01
+3layhid18.to.4layhid2   8.929680e-01
+3layhid19.to.4layhid2   1.897821e+00
+3layhid20.to.4layhid2  -1.655768e+00
+Intercept.to.4layhid3  -5.527732e-01
+3layhid1.to.4layhid3    2.475620e-01
+3layhid2.to.4layhid3    6.845546e-01
+3layhid3.to.4layhid3   -5.480797e-01
+3layhid4.to.4layhid3   -6.253858e-01
+3layhid5.to.4layhid3    1.244499e+00
+3layhid6.to.4layhid3   -1.667734e+00
+3layhid7.to.4layhid3    3.140040e-01
+3layhid8.to.4layhid3    1.048115e+00
+3layhid9.to.4layhid3   -6.159434e-01
+3layhid10.to.4layhid3  -2.011954e-02
+3layhid11.to.4layhid3  -2.160643e-01
+3layhid12.to.4layhid3   8.656373e-01
+3layhid13.to.4layhid3  -1.369954e+00
+3layhid14.to.4layhid3   1.314307e+00
+3layhid15.to.4layhid3   3.962683e-01
+3layhid16.to.4layhid3  -7.584893e-01
+3layhid17.to.4layhid3   2.899707e-01
+3layhid18.to.4layhid3  -3.193027e-01
+3layhid19.to.4layhid3   1.912484e+00
+3layhid20.to.4layhid3   1.678303e+00
+Intercept.to.4layhid4  -1.384352e+00
+3layhid1.to.4layhid4   -1.349006e+00
+3layhid2.to.4layhid4    1.039270e+00
+3layhid3.to.4layhid4    5.160427e-01
+3layhid4.to.4layhid4    1.111507e+00
+3layhid5.to.4layhid4    1.255057e-01
+3layhid6.to.4layhid4    7.272053e-01
+3layhid7.to.4layhid4    4.718144e-01
+3layhid8.to.4layhid4   -2.475756e-01
+3layhid9.to.4layhid4   -1.868134e+00
+3layhid10.to.4layhid4   8.094714e-01
+3layhid11.to.4layhid4   2.019102e-01
+3layhid12.to.4layhid4  -3.885619e-01
+3layhid13.to.4layhid4  -4.754443e-01
+3layhid14.to.4layhid4  -2.038537e-01
+3layhid15.to.4layhid4  -1.624242e+00
+3layhid16.to.4layhid4  -2.335539e-01
+3layhid17.to.4layhid4   7.749576e-01
+3layhid18.to.4layhid4  -6.739780e-02
+3layhid19.to.4layhid4  -1.423295e+00
+3layhid20.to.4layhid4  -5.325693e-01
+Intercept.to.4layhid5  -1.717178e+00
+3layhid1.to.4layhid5   -5.659148e-01
+3layhid2.to.4layhid5   -3.901573e-03
+3layhid3.to.4layhid5    9.908465e-01
+3layhid4.to.4layhid5   -5.084549e-01
+3layhid5.to.4layhid5    2.977203e-01
+3layhid6.to.4layhid5   -4.680661e-01
+3layhid7.to.4layhid5    3.092172e-02
+3layhid8.to.4layhid5   -2.267701e+00
+3layhid9.to.4layhid5   -4.052704e-01
+3layhid10.to.4layhid5  -3.241803e-01
+3layhid11.to.4layhid5  -2.358833e-01
+3layhid12.to.4layhid5   1.326448e-01
+3layhid13.to.4layhid5  -1.006289e+00
+3layhid14.to.4layhid5  -7.220307e-01
+3layhid15.to.4layhid5   9.659774e-01
+3layhid16.to.4layhid5   2.117110e+00
+3layhid17.to.4layhid5  -6.480616e-01
+3layhid18.to.4layhid5   1.550826e+00
+3layhid19.to.4layhid5  -1.309177e-01
+3layhid20.to.4layhid5   2.503717e-01
+Intercept.to.4layhid6   1.681844e+00
+3layhid1.to.4layhid6   -1.672605e+00
+3layhid2.to.4layhid6    1.362153e+00
+3layhid3.to.4layhid6    2.826526e+00
+3layhid4.to.4layhid6   -5.642477e-01
+3layhid5.to.4layhid6   -6.026389e-01
+3layhid6.to.4layhid6    7.604915e-01
+3layhid7.to.4layhid6   -1.863491e+00
+3layhid8.to.4layhid6    1.672612e+00
+3layhid9.to.4layhid6    6.472460e-02
+3layhid10.to.4layhid6   2.461303e-01
+3layhid11.to.4layhid6   5.221906e-01
+3layhid12.to.4layhid6   5.217757e-01
+3layhid13.to.4layhid6   2.248726e-01
+3layhid14.to.4layhid6   7.728282e-01
+3layhid15.to.4layhid6   6.045658e-01
+3layhid16.to.4layhid6   5.842669e-01
+3layhid17.to.4layhid6   8.382298e-02
+3layhid18.to.4layhid6  -9.287419e-02
+3layhid19.to.4layhid6  -5.346462e-01
+3layhid20.to.4layhid6   9.498197e-02
+Intercept.to.4layhid7  -5.822201e-01
+3layhid1.to.4layhid7    6.116982e-01
+3layhid2.to.4layhid7   -1.942682e+00
+3layhid3.to.4layhid7    1.490814e-01
+3layhid4.to.4layhid7   -3.644617e-01
+3layhid5.to.4layhid7    2.730101e-01
+3layhid6.to.4layhid7    1.577236e+00
+3layhid7.to.4layhid7   -2.227565e+00
+3layhid8.to.4layhid7   -7.874775e-01
+3layhid9.to.4layhid7   -2.655938e+00
+3layhid10.to.4layhid7  -1.462690e+00
+3layhid11.to.4layhid7   9.679446e-01
+3layhid12.to.4layhid7   9.116703e-01
+3layhid13.to.4layhid7  -1.252404e+00
+3layhid14.to.4layhid7   1.861756e+00
+3layhid15.to.4layhid7  -1.193691e+00
+3layhid16.to.4layhid7  -1.047715e+00
+3layhid17.to.4layhid7   1.781895e+00
+3layhid18.to.4layhid7  -2.717316e-01
+3layhid19.to.4layhid7   4.378283e-02
+3layhid20.to.4layhid7   1.043221e+00
+Intercept.to.4layhid8  -3.178577e-01
+3layhid1.to.4layhid8   -7.540437e-01
+3layhid2.to.4layhid8    3.538701e-01
+3layhid3.to.4layhid8   -7.720354e-01
+3layhid4.to.4layhid8    2.797195e-02
+3layhid5.to.4layhid8    1.835947e+00
+3layhid6.to.4layhid8    1.166528e+00
+3layhid7.to.4layhid8    7.429973e-02
+3layhid8.to.4layhid8   -1.447151e+00
+3layhid9.to.4layhid8    5.095980e-02
+3layhid10.to.4layhid8   2.498613e-01
+3layhid11.to.4layhid8  -1.334884e+00
+3layhid12.to.4layhid8   1.870658e+00
+3layhid13.to.4layhid8  -1.610217e-01
+3layhid14.to.4layhid8  -1.645427e+00
+3layhid15.to.4layhid8  -1.892088e+00
+3layhid16.to.4layhid8  -5.281097e-01
+3layhid17.to.4layhid8   6.896480e-01
+3layhid18.to.4layhid8  -9.074630e-01
+3layhid19.to.4layhid8  -2.897420e-01
+3layhid20.to.4layhid8  -2.092755e-02
+Intercept.to.4layhid9  -3.334922e-01
+3layhid1.to.4layhid9    3.023899e-02
+3layhid2.to.4layhid9   -8.961756e-01
+3layhid3.to.4layhid9   -5.762820e-01
+3layhid4.to.4layhid9   -1.095959e+00
+3layhid5.to.4layhid9    6.290787e-01
+3layhid6.to.4layhid9   -1.421435e+00
+3layhid7.to.4layhid9   -4.343545e-01
+3layhid8.to.4layhid9    1.017708e-02
+3layhid9.to.4layhid9    1.395487e+00
+3layhid10.to.4layhid9   6.327610e-01
+3layhid11.to.4layhid9   2.773037e-01
+3layhid12.to.4layhid9   1.035155e+00
+3layhid13.to.4layhid9   5.362441e-01
+3layhid14.to.4layhid9   2.198137e+00
+3layhid15.to.4layhid9   5.111562e-02
+3layhid16.to.4layhid9   4.302208e-01
+3layhid17.to.4layhid9  -9.108617e-01
+3layhid18.to.4layhid9   1.501751e+00
+3layhid19.to.4layhid9  -9.618182e-01
+3layhid20.to.4layhid9  -3.255326e-01
+Intercept.to.4layhid10  1.162267e+00
+3layhid1.to.4layhid10   8.571779e-01
+3layhid2.to.4layhid10   9.251386e-01
+3layhid3.to.4layhid10  -2.002848e-01
+3layhid4.to.4layhid10   1.492418e+00
+3layhid5.to.4layhid10   8.989005e-01
+3layhid6.to.4layhid10  -7.135842e-01
+3layhid7.to.4layhid10  -1.085570e-01
+3layhid8.to.4layhid10  -1.069577e+00
+3layhid9.to.4layhid10   7.191997e-02
+3layhid10.to.4layhid10  5.100383e-01
+3layhid11.to.4layhid10  9.884475e-01
+3layhid12.to.4layhid10  8.766749e-01
+3layhid13.to.4layhid10  8.791346e-01
+3layhid14.to.4layhid10 -2.044241e+00
+3layhid15.to.4layhid10  4.599752e-01
+3layhid16.to.4layhid10 -7.253249e-01
+3layhid17.to.4layhid10  1.462667e+00
+3layhid18.to.4layhid10  3.219983e-01
+3layhid19.to.4layhid10 -8.391869e-01
+3layhid20.to.4layhid10 -1.667059e-01
+Intercept.to.5layhid1   1.778678e+00
+4layhid1.to.5layhid1    1.112580e+00
+4layhid2.to.5layhid1    2.329112e-01
+4layhid3.to.5layhid1   -7.206841e-01
+4layhid4.to.5layhid1    1.091403e+00
+4layhid5.to.5layhid1   -9.598266e-01
+4layhid6.to.5layhid1   -3.631586e-01
+4layhid7.to.5layhid1   -7.825262e-02
+4layhid8.to.5layhid1   -1.615955e+00
+4layhid9.to.5layhid1   -8.169833e-01
+4layhid10.to.5layhid1  -2.565895e+00
+Intercept.to.5layhid2  -1.908539e-01
+4layhid1.to.5layhid2   -8.985766e-01
+4layhid2.to.5layhid2   -7.792225e-02
+4layhid3.to.5layhid2    6.620067e-01
+4layhid4.to.5layhid2    4.911848e-01
+4layhid5.to.5layhid2    2.731114e-01
+4layhid6.to.5layhid2    4.393476e-01
+4layhid7.to.5layhid2   -1.196070e-01
+4layhid8.to.5layhid2   -5.771780e-01
+4layhid9.to.5layhid2   -9.077451e-02
+4layhid10.to.5layhid2  -8.140478e-02
+Intercept.to.5layhid3  -5.423567e-01
+4layhid1.to.5layhid3   -7.562362e-01
+4layhid2.to.5layhid3    1.799850e+00
+4layhid3.to.5layhid3    1.216922e+00
+4layhid4.to.5layhid3    2.801418e-01
+4layhid5.to.5layhid3    4.023878e-01
+4layhid6.to.5layhid3   -7.170929e-01
+4layhid7.to.5layhid3    2.028346e-01
+4layhid8.to.5layhid3   -1.684796e-01
+4layhid9.to.5layhid3    1.086748e+00
+4layhid10.to.5layhid3  -2.289086e+00
+Intercept.to.5layhid4   7.369551e-01
+4layhid1.to.5layhid4   -9.910105e-01
+4layhid2.to.5layhid4   -6.700090e-01
+4layhid3.to.5layhid4    2.096487e-03
+4layhid4.to.5layhid4    8.562703e-01
+4layhid5.to.5layhid4    2.769708e-01
+4layhid6.to.5layhid4   -1.206251e+00
+4layhid7.to.5layhid4   -9.021946e-01
+4layhid8.to.5layhid4    3.465992e-01
+4layhid9.to.5layhid4    7.813455e-02
+4layhid10.to.5layhid4   6.563827e-02
+Intercept.to.5layhid5  -2.310557e+00
+4layhid1.to.5layhid5    1.298367e+00
+4layhid2.to.5layhid5    1.049843e+00
+4layhid3.to.5layhid5    1.186516e-01
+4layhid4.to.5layhid5    1.628793e+00
+4layhid5.to.5layhid5    2.210615e+00
+4layhid6.to.5layhid5    2.561339e+00
+4layhid7.to.5layhid5   -1.634840e-02
+4layhid8.to.5layhid5    4.965783e-01
+4layhid9.to.5layhid5   -1.508825e+00
+4layhid10.to.5layhid5  -4.295114e-01
+Intercept.to.Cena      -2.942395e-01
+5layhid1.to.Cena        1.924172e+00
+5layhid2.to.Cena        9.829912e-02
+5layhid3.to.Cena        2.276051e+00
+5layhid4.to.Cena       -5.188361e-01
+5layhid5.to.Cena       -2.968649e-01
+
+attr(,"class")
+[1] "nn"
+> plot(net.mathfunc)
+> testdata <- as.data.frame(matrix(
++     c(8,8,128,64),
++     nrow = 2,
++     ncol = 2
++ ))
+> scaled.testdata <- as.data.frame(scale(testdata, center = mins, scale = maxs - mins))
+> net.results <- compute(net.mathfunc, scaled.testdata)
+> ls(net.results)
+[1] "net.result" "neurons"   
+> print(net.results$net.result * max(trainingoutput - min(trainingoutput)) + min(trainingoutput))
+         [,1]
+[1,] 2699.464
+[2,] 1918.218

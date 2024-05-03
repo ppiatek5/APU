@@ -1,0 +1,91 @@
+R version 4.3.3 (2024-02-29 ucrt) -- "Angel Food Cake"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R jest oprogramowaniem darmowym i dostarczany jest BEZ JAKIEJKOLWIEK GWARANCJI.
+Możesz go rozpowszechniać pod pewnymi warunkami.
+Wpisz 'license()' lub 'licence()' aby uzyskać szczegóły dystrybucji.
+
+R jest projektem kolaboracyjnym z wieloma uczestnikami.
+Wpisz 'contributors()' aby uzyskać więcej informacji oraz
+'citation()' aby dowiedzieć się jak cytować R lub pakiety R w publikacjach.
+
+Wpisz 'demo()' aby zobaczyć demo, 'help()' aby uzyskać pomoc on-line, lub
+'help.start()' aby uzyskać pomoc w przeglądarce HTML.
+Wpisz 'q()' aby wyjść z R.
+
+> setwd("C:/Users/mrbre/Desktop/Studia/APU/Lab2/")
+> install.packages("data.tree")
+Instalowanie pakietu w ‘C:/Users/mrbre/AppData/Local/R/win-library/4.3’
+(ponieważ ‘lib’ nie jest określony)
+próbowanie adresu URL 'https://cran.rstudio.com/bin/windows/contrib/4.3/data.tree_1.1.0.zip'
+Content type 'application/zip' length 1506892 bytes (1.4 MB)
+downloaded 1.4 MB
+
+pakiet ‘data.tree’ został pomyślnie rozpakowany oraz sumy MD5 zostały sprawdzone
+
+Pobrane pakiety binarne są w
+	C:\Users\mrbre\AppData\Local\Temp\RtmpiIDUTs\downloaded_packages
+> install.packages("DiagrammeR")
+Instalowanie pakietu w ‘C:/Users/mrbre/AppData/Local/R/win-library/4.3’
+(ponieważ ‘lib’ nie jest określony)
+próbowanie adresu URL 'https://cran.rstudio.com/bin/windows/contrib/4.3/DiagrammeR_1.0.11.zip'
+Content type 'application/zip' length 2220951 bytes (2.1 MB)
+downloaded 2.1 MB
+
+pakiet ‘DiagrammeR’ został pomyślnie rozpakowany oraz sumy MD5 zostały sprawdzone
+
+Pobrane pakiety binarne są w
+	C:\Users\mrbre\AppData\Local\Temp\RtmpiIDUTs\downloaded_packages
+> install.packages("formattable")
+Instalowanie pakietu w ‘C:/Users/mrbre/AppData/Local/R/win-library/4.3’
+(ponieważ ‘lib’ nie jest określony)
+próbowanie adresu URL 'https://cran.rstudio.com/bin/windows/contrib/4.3/formattable_0.2.1.zip'
+Content type 'application/zip' length 175326 bytes (171 KB)
+downloaded 171 KB
+
+pakiet ‘formattable’ został pomyślnie rozpakowany oraz sumy MD5 zostały sprawdzone
+
+Pobrane pakiety binarne są w
+	C:\Users\mrbre\AppData\Local\Temp\RtmpiIDUTs\downloaded_packages
+> install.packages("C:/Users/mrbre/Desktop/Studia/APU/Lab2/ahp_0.2.12.tar.gz",repos=NULL,type = "source")
+Instalowanie pakietu w ‘C:/Users/mrbre/AppData/Local/R/win-library/4.3’
+(ponieważ ‘lib’ nie jest określony)
+* installing *source* package 'ahp' ...
+** pakiet 'ahp' został pomyślnie rozpakowany oraz sumy MD5 zostały sprawdzone
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (ahp)
+> library(ahp)
+> library(data.tree)
+> ahpData <- Load("C:/Users/mrbre/Desktop/Studia/APU/Lab2/smartfony.yaml")
+> Calculate(ahpData)
+> Visualize(ahpData)
+Było 50 lub więcej ostrzeżeń (użyj 'warnings()' aby zobaczyć pierwsze 50)
+> Analyze(ahpData)
+                           Weight Galaxy S24 Ultra Galaxy S23+ Galaxy S23 Galaxy A54 Galaxy A55 Galaxy A34
+1 Kup smartfon             100.0%            16.2%       11.4%      10.9%       9.9%       9.8%       8.5%
+2  ¦--Wydajnosc             57.4%            10.5%        6.5%       6.5%       5.7%       5.7%       4.5%
+3  ¦   ¦--pamiec_RAM        45.9%             7.4%        5.0%       5.0%       5.0%       5.0%       3.7%
+4  ¦   °--pamiec_wbudowana  11.5%             3.1%        1.5%       1.5%       0.8%       0.8%       0.8%
+5  ¦--Jakosc                18.0%             1.9%        1.8%       1.7%       1.8%       1.8%       1.8%
+6  ¦--Styl                  15.1%             1.6%        1.6%       1.6%       1.6%       1.6%       1.5%
+7  °--Cena                   9.5%             2.2%        1.5%       1.2%       0.8%       0.7%       0.6%
+  Galaxy A35 Galaxy S21 FE Galaxy M34 Galaxy A25 Inconsistency
+1       8.4%          8.3%       8.3%       8.2%         18.7%
+2       4.5%          4.5%       4.5%       4.5%          0.0%
+3       3.7%          3.7%       3.7%       3.7%          0.0%
+4       0.8%          0.8%       0.8%       0.8%          0.0%
+5       1.8%          1.8%       1.8%       1.8%          0.0%
+6       1.6%          1.0%       1.6%       1.6%          0.0%
+7       0.6%          1.0%       0.4%       0.4%          0.0%
+> AnalyzeTable(ahpData)
