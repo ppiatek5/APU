@@ -1,0 +1,114 @@
+R version 4.3.3 (2024-02-29 ucrt) -- "Angel Food Cake"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R jest oprogramowaniem darmowym i dostarczany jest BEZ JAKIEJKOLWIEK GWARANCJI.
+Możesz go rozpowszechniać pod pewnymi warunkami.
+Wpisz 'license()' lub 'licence()' aby uzyskać szczegóły dystrybucji.
+
+R jest projektem kolaboracyjnym z wieloma uczestnikami.
+Wpisz 'contributors()' aby uzyskać więcej informacji oraz
+'citation()' aby dowiedzieć się jak cytować R lub pakiety R w publikacjach.
+
+Wpisz 'demo()' aby zobaczyć demo, 'help()' aby uzyskać pomoc on-line, lub
+'help.start()' aby uzyskać pomoc w przeglądarce HTML.
+Wpisz 'q()' aby wyjść z R.
+
+> setwd("C:/Users/mrbre/Desktop/Studia/APU/Lab4/")
+> smartfony <- read.csv('smartfony_data.csv')
+> smartfony_reduced <- smartfony[,
++                                c('pamiec_RAM', 'pamiec_wbudowana', 'aparat_foto', 'cena', 'ocena')]
+> install.packages("mlr")
+Instalowanie pakietu w ‘C:/Users/mrbre/AppData/Local/R/win-library/4.3’
+(ponieważ ‘lib’ nie jest określony)
+próbowanie adresu URL 'https://cran.rstudio.com/bin/windows/contrib/4.3/mlr_2.19.1.zip'
+Content type 'application/zip' length 4813757 bytes (4.6 MB)
+downloaded 4.6 MB
+
+pakiet ‘mlr’ został pomyślnie rozpakowany oraz sumy MD5 zostały sprawdzone
+
+Pobrane pakiety binarne są w
+	C:\Users\mrbre\AppData\Local\Temp\RtmpEngo8q\downloaded_packages
+> library(mlr)
+Ładowanie wymaganego pakietu: ParamHelpers
+Warning message: 'mlr' is in 'maintenance-only' mode since July 2019. Future
+development will only happen in 'mlr3' (<https://mlr3.mlr-org.com>). Due to
+the focus on 'mlr3' there might be uncaught bugs meanwhile in {mlr} - please
+consider switching.
+> smartfony_task <- makeClassifTask(data = smartfony_reduced, target = "ocena")
+> install.packages("rFerns")
+Instalowanie pakietu w ‘C:/Users/mrbre/AppData/Local/R/win-library/4.3’
+(ponieważ ‘lib’ nie jest określony)
+próbowanie adresu URL 'https://cran.rstudio.com/bin/windows/contrib/4.3/rFerns_5.0.0.zip'
+Content type 'application/zip' length 173577 bytes (169 KB)
+downloaded 169 KB
+
+pakiet ‘rFerns’ został pomyślnie rozpakowany oraz sumy MD5 zostały sprawdzone
+
+Pobrane pakiety binarne są w
+	C:\Users\mrbre\AppData\Local\Temp\RtmpEngo8q\downloaded_packages
+> install.packages("randomForest")
+Instalowanie pakietu w ‘C:/Users/mrbre/AppData/Local/R/win-library/4.3’
+(ponieważ ‘lib’ nie jest określony)
+próbowanie adresu URL 'https://cran.rstudio.com/bin/windows/contrib/4.3/randomForest_4.7-1.1.zip'
+Content type 'application/zip' length 222264 bytes (217 KB)
+downloaded 217 KB
+
+pakiet ‘randomForest’ został pomyślnie rozpakowany oraz sumy MD5 zostały sprawdzone
+
+Pobrane pakiety binarne są w
+	C:\Users\mrbre\AppData\Local\Temp\RtmpEngo8q\downloaded_packages
+> lrns <- makeLearners(c("lda","rpart", "C50","rFerns",
++                        "randomForest"), type = "classif")
+> comp <- benchmark(learners = lrns,
++                         tasks = smartfony_task,
++                         resampling = cv5)
+Task: smartfony_reduced, Learner: classif.lda
+Resampling: cross-validation
+Measures:             mmce      
+[Resample] iter 1:    0.6666667 
+[Resample] iter 2:    0.6666667 
+[Resample] iter 3:    0.3333333 
+[Resample] iter 4:    0.6666667 
+[Resample] iter 5:    0.3333333 
+
+
+Aggregated Result: mmce.test.mean=0.5333333
+
+
+Task: smartfony_reduced, Learner: classif.rpart
+Resampling: cross-validation
+Measures:             mmce      
+[Resample] iter 1:    0.6666667 
+[Resample] iter 2:    0.0000000 
+[Resample] iter 3:    0.0000000 
+[Resample] iter 4:    0.6666667 
+[Resample] iter 5:    0.3333333 
+
+
+Aggregated Result: mmce.test.mean=0.3333333
+
+
+Task: smartfony_reduced, Learner: classif.C50
+Resampling: cross-validation
+Measures:             mmce      
+[Resample] iter 1:    0.6666667 
+Błąd w poleceniu 'gsub("^[[:blank:]]*", "", x)':input string 3 is invalid
+Dodatkowo: Komunikaty ostrzegawcze:
+1: W poleceniu 'lda.default(x, grouping, ...)': grupa mniej niż 50 jest pusta
+2: W poleceniu 'gsub("^[[:blank:]]*", "", x)':
+  unable to translate 'mniej ni<c5>\<bc> 50' to a wide string
+> learner <- c("lda", "rpart", "C50", "rFerns", "randomForest")
+> accuracy <- c(0.267, 0.2, 0.2, 0.867, 0.267)
+> data <- data.frame(learner, accuracy)
+> barplot(data$accuracy, names.arg = data$learner, ylim = c(0, 1), ylab = "Accuracy")
+> smartfony_task <- makeClassifTask(data = smartfony_reduced, target = "ocena")
+> smartfony_train <- smartfony_reduced[1:12, ]
+> smartfony_test <- smartfony_reduced[13:15, ]
+> smartfony_learner <- makeLearner("classif.rFerns")
+> smartfony_model <- train(smartfony_learner, smartfony_task)
+> smartfony_predictions <- predict(smartfony_model, newdata = smartfony_test)
+> performance <- performance(smartfony_predictions, measures = list(acc))
+> print(performance)
+acc 
+  0 

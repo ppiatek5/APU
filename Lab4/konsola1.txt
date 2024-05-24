@@ -1,0 +1,166 @@
+R version 4.3.3 (2024-02-29 ucrt) -- "Angel Food Cake"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R jest oprogramowaniem darmowym i dostarczany jest BEZ JAKIEJKOLWIEK GWARANCJI.
+Możesz go rozpowszechniać pod pewnymi warunkami.
+Wpisz 'license()' lub 'licence()' aby uzyskać szczegóły dystrybucji.
+
+R jest projektem kolaboracyjnym z wieloma uczestnikami.
+Wpisz 'contributors()' aby uzyskać więcej informacji oraz
+'citation()' aby dowiedzieć się jak cytować R lub pakiety R w publikacjach.
+
+Wpisz 'demo()' aby zobaczyć demo, 'help()' aby uzyskać pomoc on-line, lub
+'help.start()' aby uzyskać pomoc w przeglądarce HTML.
+Wpisz 'q()' aby wyjść z R.
+
+> setwd("C:/Users/mrbre/Desktop/Studia/APU/Lab4/")
+> install.packages("mlr")
+Instalowanie pakietu w ‘C:/Users/mrbre/AppData/Local/R/win-library/4.3’
+(ponieważ ‘lib’ nie jest określony)
+próbowanie adresu URL 'https://cran.rstudio.com/bin/windows/contrib/4.3/mlr_2.19.1.zip'
+Content type 'application/zip' length 4813757 bytes (4.6 MB)
+downloaded 4.6 MB
+
+pakiet ‘mlr’ został pomyślnie rozpakowany oraz sumy MD5 zostały sprawdzone
+
+Pobrane pakiety binarne są w
+	C:\Users\mrbre\AppData\Local\Temp\RtmpuSIrkp\downloaded_packages
+> library(mlr)
+Ładowanie wymaganego pakietu: ParamHelpers
+Warning message: 'mlr' is in 'maintenance-only' mode since July 2019. Future
+development will only happen in 'mlr3' (<https://mlr3.mlr-org.com>). Due to
+the focus on 'mlr3' there might be uncaught bugs meanwhile in {mlr} - please
+consider switching.
+> library(datasets)
+> data(iris)
+> iris_task <- makeClassifTask(data = iris, target = "Species")
+> indices <- sample(1:nrow(iris), size = nrow(iris), replace = FALSE)
+> train_ratio <- 0.7
+> train_size <- floor(train_ratio * nrow(iris))
+> train_data <- iris[indices[1:train_size], ]
+> test_data <- iris[indices[(train_size + 1):nrow(iris)], ]
+> levels(factor(listLearners()$type))
+Ostrzeżenie w poleceniu 'listLearners.character()':
+  The following learners could not be constructed, probably because their packages are not installed:
+classif.ada,classif.adaboostm1,classif.bartMachine,classif.boosting,classif.bst,classif.clusterSVM,classif.cvglmnet,classif.dbnDNN,classif.dcSVM,classif.earth,classif.evtree,classif.fdausc.glm,classif.fdausc.kernel,classif.fdausc.knn,classif.fdausc.np,classif.FDboost,classif.fgam,classif.fnn,classif.gamboost,classif.gaterSVM,classif.gausspr,classif.gbm,classif.glmboost,classif.glmnet,classif.h2o.deeplearning,classif.h2o.gbm,classif.h2o.glm,classif.h2o.randomForest,classif.IBk,classif.J48,classif.JRip,classif.kknn,classif.ksvm,classif.LiblineaRL1L2SVC,classif.LiblineaRL1LogReg,classif.LiblineaRL2L1SVC,classif.LiblineaRL2LogReg,classif.LiblineaRL2SVC,classif.LiblineaRMultiClassSVC,classif.lssvm,classif.mda,classif.mlp,classif.naiveBayes,classif.nnTrain,classif.OneR,classif.pamr,classif.PART,classif.penalized,classif.plr,classif.plsdaCaret,classif.randomForest,classif.ranger,classif.rda,cla  [... przycięte]
+[1] "classif"    "cluster"    "multilabel" "regr"       "surv"      
+> learner <- makeLearner("classif.rpart")
+> model <- train(learner, iris_task)
+> predictions <- predict(model, newdata = test_data)
+> performance <- performance(predictions, measures = list(acc))
+> print(performance)
+      acc 
+0.9777778 
+> summary(model)
+              Length Class           Mode     
+learner        15    classif.rpart   list     
+learner.model  14    rpart           list     
+task.desc      13    ClassifTaskDesc list     
+subset        150    -none-          numeric  
+features        4    -none-          character
+factor.levels   1    -none-          list     
+time            1    -none-          numeric  
+dump            0    -none-          NULL     
+> install.packages("rpart.plot")
+Instalowanie pakietu w ‘C:/Users/mrbre/AppData/Local/R/win-library/4.3’
+(ponieważ ‘lib’ nie jest określony)
+próbowanie adresu URL 'https://cran.rstudio.com/bin/windows/contrib/4.3/rpart.plot_3.1.2.zip'
+Content type 'application/zip' length 1035281 bytes (1011 KB)
+downloaded 1011 KB
+
+pakiet ‘rpart.plot’ został pomyślnie rozpakowany oraz sumy MD5 zostały sprawdzone
+
+Pobrane pakiety binarne są w
+	C:\Users\mrbre\AppData\Local\Temp\Rtmpec84cm\downloaded_packages
+> rpart.plot(getLearnerModel(model))
+Komunikat ostrzegawczy:
+Cannot retrieve the data used to build the model (so cannot determine roundint and is.binary for the variables).
+To silence this warning:
+    Call rpart.plot with roundint=FALSE,
+    or rebuild the rpart model with model=TRUE. 
+> install.packages("C50")
+Instalowanie pakietu w ‘C:/Users/mrbre/AppData/Local/R/win-library/4.3’
+(ponieważ ‘lib’ nie jest określony)
+próbowanie adresu URL 'https://cran.rstudio.com/bin/windows/contrib/4.3/C50_0.1.8.zip'
+Content type 'application/zip' length 342660 bytes (334 KB)
+downloaded 334 KB
+
+pakiet ‘C50’ został pomyślnie rozpakowany oraz sumy MD5 zostały sprawdzone
+
+Pobrane pakiety binarne są w
+	C:\Users\mrbre\AppData\Local\Temp\Rtmpec84cm\downloaded_packages
+> library(C50)
+> ruleModel <- C5.0(Species ~ ., data=train_data, rules=TRUE)
+> ruleModel
+
+Call:
+C5.0.formula(formula = Species ~ ., data = train_data, rules = TRUE)
+
+Rule-Based Model
+Number of samples: 105 
+Number of predictors: 4 
+
+Number of Rules: 4 
+
+Non-standard options: attempt to group attributes
+
+> summary(ruleModel)
+
+Call:
+C5.0.formula(formula = Species ~ ., data = train_data, rules = TRUE)
+
+
+C5.0 [Release 2.07 GPL Edition]  	Fri May 10 12:21:36 2024
+-------------------------------
+
+Class specified by attribute `outcome'
+
+Read 105 cases (5 attributes) from undefined.data
+
+Rules:
+
+Rule 1: (35, lift 2.9)
+	Petal.Length <= 1.9
+	->  class setosa  [0.973]
+
+Rule 2: (32/1, lift 3.0)
+	Petal.Length > 1.9
+	Petal.Length <= 4.9
+	Petal.Width <= 1.7
+	->  class versicolor  [0.941]
+
+Rule 3: (32, lift 2.8)
+	Petal.Width > 1.7
+	->  class virginica  [0.971]
+
+Rule 4: (33/2, lift 2.6)
+	Petal.Length > 4.9
+	->  class virginica  [0.914]
+
+Default class: virginica
+
+
+Evaluation on training data (105 cases):
+
+	        Rules     
+	  ----------------
+	    No      Errors
+
+	     4    3( 2.9%)   <<
+
+
+	   (a)   (b)   (c)    <-classified as
+	  ----  ----  ----
+	    35                (a): class setosa
+	          31     2    (b): class versicolor
+	           1    36    (c): class virginica
+
+
+	Attribute usage:
+
+	 95.24%	Petal.Length
+	 60.95%	Petal.Width
+
+
+Time: 0.0 secs
