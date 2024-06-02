@@ -1,0 +1,633 @@
+R version 4.2.2 (2022-10-31 ucrt) -- "Innocent and Trusting"
+Copyright (C) 2022 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> setwd('F:/Sem8/APU/Lab5')
+> install.packages("tensorflow")
+WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding:
+
+https://cran.rstudio.com/bin/windows/Rtools/
+Instalowanie pakietu w ‘C:/Users/ath/AppData/Local/R/win-library/4.2’
+(ponieważ ‘lib’ nie jest określony)
+instalowanie dodatkowych zależności ‘RcppTOML’, ‘here’, ‘png’, ‘backports’, ‘config’, ‘reticulate’, ‘tfruns’, ‘tfautograph’
+
+
+  Są dostępne wersje binarne, ale wersje ze źródłami są
+  późniejsze:
+           binary source needs_compilation
+backports   1.4.1  1.5.0              TRUE
+reticulate 1.36.1 1.37.0              TRUE
+
+  Binaries will be installed
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.2/RcppTOML_0.2.2.zip'
+Content type 'application/zip' length 597497 bytes (583 KB)
+downloaded 583 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.2/here_1.0.1.zip'
+Content type 'application/zip' length 64170 bytes (62 KB)
+downloaded 62 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.2/png_0.1-8.zip'
+Content type 'application/zip' length 190849 bytes (186 KB)
+downloaded 186 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.2/backports_1.4.1.zip'
+Content type 'application/zip' length 102215 bytes (99 KB)
+downloaded 99 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.2/config_0.3.2.zip'
+Content type 'application/zip' length 111505 bytes (108 KB)
+downloaded 108 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.2/reticulate_1.36.1.zip'
+Content type 'application/zip' length 2176157 bytes (2.1 MB)
+downloaded 2.1 MB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.2/tfruns_1.5.3.zip'
+Content type 'application/zip' length 1486553 bytes (1.4 MB)
+downloaded 1.4 MB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.2/tfautograph_0.3.2.zip'
+Content type 'application/zip' length 164589 bytes (160 KB)
+downloaded 160 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.2/tensorflow_2.16.0.zip'
+Content type 'application/zip' length 213994 bytes (208 KB)
+downloaded 208 KB
+
+pakiet ‘RcppTOML’ został pomyślnie rozpakowany oraz sumy MD5 zostały sprawdzone
+pakiet ‘here’ został pomyślnie rozpakowany oraz sumy MD5 zostały sprawdzone
+pakiet ‘png’ został pomyślnie rozpakowany oraz sumy MD5 zostały sprawdzone
+pakiet ‘backports’ został pomyślnie rozpakowany oraz sumy MD5 zostały sprawdzone
+pakiet ‘config’ został pomyślnie rozpakowany oraz sumy MD5 zostały sprawdzone
+pakiet ‘reticulate’ został pomyślnie rozpakowany oraz sumy MD5 zostały sprawdzone
+pakiet ‘tfruns’ został pomyślnie rozpakowany oraz sumy MD5 zostały sprawdzone
+pakiet ‘tfautograph’ został pomyślnie rozpakowany oraz sumy MD5 zostały sprawdzone
+pakiet ‘tensorflow’ został pomyślnie rozpakowany oraz sumy MD5 zostały sprawdzone
+
+Pobrane pakiety binarne są w
+	C:\Users\ath\AppData\Local\Temp\RtmpwFrJrf\downloaded_packages
+> library(tensorflow)
+Warning message:
+pakiet ‘tensorflow’ został zbudowany w wersji R 4.2.3 
+> install_tensorflow()
+Using Python: C:/Users/ath/AppData/Local/Programs/Python/Python311/python.exe
+Creating virtual environment "r-tensorflow" ... 
++ "C:/Users/ath/AppData/Local/Programs/Python/Python311/python.exe" -m venv "C:/Users/ath/Documents/.virtualenvs/r-tensorflow"
+Done!
+Installing packages: pip, wheel, setuptools
++ "C:/Users/ath/Documents/.virtualenvs/r-tensorflow/Scripts/python.exe" -m pip install --upgrade pip wheel setuptools
+Requirement already satisfied: pip in c:\users\ath\docume~1\virtua~1\r-tens~1\lib\site-packages (22.3.1)
+Collecting pip
+  Using cached pip-24.0-py3-none-any.whl (2.1 MB)
+Collecting wheel
+  Downloading wheel-0.43.0-py3-none-any.whl (65 kB)
+     ---------------------------------------- 65.8/65.8 kB 1.8 MB/s eta 0:00:00
+Requirement already satisfied: setuptools in c:\users\ath\docume~1\virtua~1\r-tens~1\lib\site-packages (65.5.0)
+Collecting setuptools
+  Downloading setuptools-70.0.0-py3-none-any.whl (863 kB)
+     -------------------------------------- 863.4/863.4 kB 6.1 MB/s eta 0:00:00
+Installing collected packages: wheel, setuptools, pip
+  Attempting uninstall: setuptools
+    Found existing installation: setuptools 65.5.0
+    Uninstalling setuptools-65.5.0:
+      Successfully uninstalled setuptools-65.5.0
+  Attempting uninstall: pip
+    Found existing installation: pip 22.3.1
+    Uninstalling pip-22.3.1:
+      Successfully uninstalled pip-22.3.1
+Successfully installed pip-24.0 setuptools-70.0.0 wheel-0.43.0
+Virtual environment 'r-tensorflow' successfully created.
+Using virtual environment "r-tensorflow" ...
++ "C:/Users/ath/Documents/.virtualenvs/r-tensorflow/Scripts/python.exe" -m pip install --upgrade --no-user "tensorflow==2.16.*"
+Collecting tensorflow==2.16.*
+  Using cached tensorflow-2.16.1-cp311-cp311-win_amd64.whl.metadata (3.5 kB)
+Collecting tensorflow-intel==2.16.1 (from tensorflow==2.16.*)
+  Using cached tensorflow_intel-2.16.1-cp311-cp311-win_amd64.whl.metadata (5.0 kB)
+Collecting absl-py>=1.0.0 (from tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Using cached absl_py-2.1.0-py3-none-any.whl.metadata (2.3 kB)
+Collecting astunparse>=1.6.0 (from tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Using cached astunparse-1.6.3-py2.py3-none-any.whl.metadata (4.4 kB)
+Collecting flatbuffers>=23.5.26 (from tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Downloading flatbuffers-24.3.25-py2.py3-none-any.whl.metadata (850 bytes)
+Collecting gast!=0.5.0,!=0.5.1,!=0.5.2,>=0.2.1 (from tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Downloading gast-0.5.4-py3-none-any.whl.metadata (1.3 kB)
+Collecting google-pasta>=0.1.1 (from tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Using cached google_pasta-0.2.0-py3-none-any.whl.metadata (814 bytes)
+Collecting h5py>=3.10.0 (from tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Downloading h5py-3.11.0-cp311-cp311-win_amd64.whl.metadata (2.5 kB)
+Collecting libclang>=13.0.0 (from tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Using cached libclang-18.1.1-py2.py3-none-win_amd64.whl.metadata (5.3 kB)
+Collecting ml-dtypes~=0.3.1 (from tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Downloading ml_dtypes-0.3.2-cp311-cp311-win_amd64.whl.metadata (20 kB)
+Collecting opt-einsum>=2.3.2 (from tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Using cached opt_einsum-3.3.0-py3-none-any.whl.metadata (6.5 kB)
+Collecting packaging (from tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Downloading packaging-24.0-py3-none-any.whl.metadata (3.2 kB)
+Collecting protobuf!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,<5.0.0dev,>=3.20.3 (from tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Using cached protobuf-4.25.3-cp310-abi3-win_amd64.whl.metadata (541 bytes)
+Collecting requests<3,>=2.21.0 (from tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Downloading requests-2.32.2-py3-none-any.whl.metadata (4.6 kB)
+Requirement already satisfied: setuptools in c:\users\ath\docume~1\virtua~1\r-tens~1\lib\site-packages (from tensorflow-intel==2.16.1->tensorflow==2.16.*) (70.0.0)
+Collecting six>=1.12.0 (from tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Downloading six-1.16.0-py2.py3-none-any.whl.metadata (1.8 kB)
+Collecting termcolor>=1.1.0 (from tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Using cached termcolor-2.4.0-py3-none-any.whl.metadata (6.1 kB)
+Collecting typing-extensions>=3.6.6 (from tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Downloading typing_extensions-4.12.0-py3-none-any.whl.metadata (3.0 kB)
+Collecting wrapt>=1.11.0 (from tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Downloading wrapt-1.16.0-cp311-cp311-win_amd64.whl.metadata (6.8 kB)
+Collecting grpcio<2.0,>=1.24.3 (from tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Downloading grpcio-1.64.0-cp311-cp311-win_amd64.whl.metadata (3.4 kB)
+Collecting tensorboard<2.17,>=2.16 (from tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Downloading tensorboard-2.16.2-py3-none-any.whl.metadata (1.6 kB)
+Collecting keras>=3.0.0 (from tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Downloading keras-3.3.3-py3-none-any.whl.metadata (5.7 kB)
+Collecting tensorflow-io-gcs-filesystem>=0.23.1 (from tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Using cached tensorflow_io_gcs_filesystem-0.31.0-cp311-cp311-win_amd64.whl.metadata (14 kB)
+Collecting numpy<2.0.0,>=1.23.5 (from tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Downloading numpy-1.26.4-cp311-cp311-win_amd64.whl.metadata (61 kB)
+     ---------------------------------------- 61.0/61.0 kB 1.6 MB/s eta 0:00:00
+Requirement already satisfied: wheel<1.0,>=0.23.0 in c:\users\ath\docume~1\virtua~1\r-tens~1\lib\site-packages (from astunparse>=1.6.0->tensorflow-intel==2.16.1->tensorflow==2.16.*) (0.43.0)
+Collecting rich (from keras>=3.0.0->tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Downloading rich-13.7.1-py3-none-any.whl.metadata (18 kB)
+Collecting namex (from keras>=3.0.0->tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Downloading namex-0.0.8-py3-none-any.whl.metadata (246 bytes)
+Collecting optree (from keras>=3.0.0->tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Downloading optree-0.11.0-cp311-cp311-win_amd64.whl.metadata (46 kB)
+     ---------------------------------------- 46.2/46.2 kB ? eta 0:00:00
+Collecting charset-normalizer<4,>=2 (from requests<3,>=2.21.0->tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Downloading charset_normalizer-3.3.2-cp311-cp311-win_amd64.whl.metadata (34 kB)
+Collecting idna<4,>=2.5 (from requests<3,>=2.21.0->tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Downloading idna-3.7-py3-none-any.whl.metadata (9.9 kB)
+Collecting urllib3<3,>=1.21.1 (from requests<3,>=2.21.0->tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Downloading urllib3-2.2.1-py3-none-any.whl.metadata (6.4 kB)
+Collecting certifi>=2017.4.17 (from requests<3,>=2.21.0->tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Downloading certifi-2024.2.2-py3-none-any.whl.metadata (2.2 kB)
+Collecting markdown>=2.6.8 (from tensorboard<2.17,>=2.16->tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Downloading Markdown-3.6-py3-none-any.whl.metadata (7.0 kB)
+Collecting tensorboard-data-server<0.8.0,>=0.7.0 (from tensorboard<2.17,>=2.16->tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Using cached tensorboard_data_server-0.7.2-py3-none-any.whl.metadata (1.1 kB)
+Collecting werkzeug>=1.0.1 (from tensorboard<2.17,>=2.16->tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Downloading werkzeug-3.0.3-py3-none-any.whl.metadata (3.7 kB)
+Collecting MarkupSafe>=2.1.1 (from werkzeug>=1.0.1->tensorboard<2.17,>=2.16->tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Downloading MarkupSafe-2.1.5-cp311-cp311-win_amd64.whl.metadata (3.1 kB)
+Collecting markdown-it-py>=2.2.0 (from rich->keras>=3.0.0->tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Downloading markdown_it_py-3.0.0-py3-none-any.whl.metadata (6.9 kB)
+Collecting pygments<3.0.0,>=2.13.0 (from rich->keras>=3.0.0->tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Downloading pygments-2.18.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich->keras>=3.0.0->tensorflow-intel==2.16.1->tensorflow==2.16.*)
+  Downloading mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+Downloading tensorflow-2.16.1-cp311-cp311-win_amd64.whl (2.1 kB)
+Downloading tensorflow_intel-2.16.1-cp311-cp311-win_amd64.whl (377.0 MB)
+   ---------------------------------------- 377.0/377.0 MB 3.9 MB/s eta 0:00:00
+Using cached absl_py-2.1.0-py3-none-any.whl (133 kB)
+Using cached astunparse-1.6.3-py2.py3-none-any.whl (12 kB)
+Downloading flatbuffers-24.3.25-py2.py3-none-any.whl (26 kB)
+Downloading gast-0.5.4-py3-none-any.whl (19 kB)
+Using cached google_pasta-0.2.0-py3-none-any.whl (57 kB)
+Downloading grpcio-1.64.0-cp311-cp311-win_amd64.whl (4.1 MB)
+   ---------------------------------------- 4.1/4.1 MB 5.9 MB/s eta 0:00:00
+Downloading h5py-3.11.0-cp311-cp311-win_amd64.whl (3.0 MB)
+   ---------------------------------------- 3.0/3.0 MB 6.3 MB/s eta 0:00:00
+Downloading keras-3.3.3-py3-none-any.whl (1.1 MB)
+   ---------------------------------------- 1.1/1.1 MB 6.4 MB/s eta 0:00:00
+Using cached libclang-18.1.1-py2.py3-none-win_amd64.whl (26.4 MB)
+Downloading ml_dtypes-0.3.2-cp311-cp311-win_amd64.whl (127 kB)
+   ---------------------------------------- 127.7/127.7 kB 7.3 MB/s eta 0:00:00
+Downloading numpy-1.26.4-cp311-cp311-win_amd64.whl (15.8 MB)
+   ---------------------------------------- 15.8/15.8 MB 7.8 MB/s eta 0:00:00
+Using cached opt_einsum-3.3.0-py3-none-any.whl (65 kB)
+Using cached protobuf-4.25.3-cp310-abi3-win_amd64.whl (413 kB)
+Downloading requests-2.32.2-py3-none-any.whl (63 kB)
+   ---------------------------------------- 63.9/63.9 kB ? eta 0:00:00
+Downloading six-1.16.0-py2.py3-none-any.whl (11 kB)
+Downloading tensorboard-2.16.2-py3-none-any.whl (5.5 MB)
+   ---------------------------------------- 5.5/5.5 MB 7.2 MB/s eta 0:00:00
+Using cached tensorflow_io_gcs_filesystem-0.31.0-cp311-cp311-win_amd64.whl (1.5 MB)
+Using cached termcolor-2.4.0-py3-none-any.whl (7.7 kB)
+Downloading typing_extensions-4.12.0-py3-none-any.whl (37 kB)
+Downloading wrapt-1.16.0-cp311-cp311-win_amd64.whl (37 kB)
+Downloading packaging-24.0-py3-none-any.whl (53 kB)
+   ---------------------------------------- 53.5/53.5 kB ? eta 0:00:00
+Downloading certifi-2024.2.2-py3-none-any.whl (163 kB)
+   --------------------------------------- 163.8/163.8 kB 10.2 MB/s eta 0:00:00
+Downloading charset_normalizer-3.3.2-cp311-cp311-win_amd64.whl (99 kB)
+   ---------------------------------------- 99.9/99.9 kB 5.6 MB/s eta 0:00:00
+Downloading idna-3.7-py3-none-any.whl (66 kB)
+   ---------------------------------------- 66.8/66.8 kB 3.5 MB/s eta 0:00:00
+Downloading Markdown-3.6-py3-none-any.whl (105 kB)
+   ---------------------------------------- 105.4/105.4 kB 5.9 MB/s eta 0:00:00
+Using cached tensorboard_data_server-0.7.2-py3-none-any.whl (2.4 kB)
+Downloading urllib3-2.2.1-py3-none-any.whl (121 kB)
+   ---------------------------------------- 121.1/121.1 kB 7.4 MB/s eta 0:00:00
+Downloading werkzeug-3.0.3-py3-none-any.whl (227 kB)
+   ---------------------------------------- 227.3/227.3 kB 7.0 MB/s eta 0:00:00
+Downloading namex-0.0.8-py3-none-any.whl (5.8 kB)
+Downloading optree-0.11.0-cp311-cp311-win_amd64.whl (245 kB)
+   ---------------------------------------- 245.0/245.0 kB 7.6 MB/s eta 0:00:00
+Downloading rich-13.7.1-py3-none-any.whl (240 kB)
+   ---------------------------------------- 240.7/240.7 kB 7.4 MB/s eta 0:00:00
+Downloading markdown_it_py-3.0.0-py3-none-any.whl (87 kB)
+   ---------------------------------------- 87.5/87.5 kB 4.8 MB/s eta 0:00:00
+Downloading MarkupSafe-2.1.5-cp311-cp311-win_amd64.whl (17 kB)
+Downloading pygments-2.18.0-py3-none-any.whl (1.2 MB)
+   ---------------------------------------- 1.2/1.2 MB 6.9 MB/s eta 0:00:00
+Downloading mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Installing collected packages: namex, libclang, flatbuffers, wrapt, urllib3, typing-extensions, termcolor, tensorflow-io-gcs-filesystem, tensorboard-data-server, six, pygments, protobuf, packaging, numpy, mdurl, MarkupSafe, markdown, idna, grpcio, gast, charset-normalizer, certifi, absl-py, werkzeug, requests, optree, opt-einsum, ml-dtypes, markdown-it-py, h5py, google-pasta, astunparse, tensorboard, rich, keras, tensorflow-intel, tensorflow
+Successfully installed MarkupSafe-2.1.5 absl-py-2.1.0 astunparse-1.6.3 certifi-2024.2.2 charset-normalizer-3.3.2 flatbuffers-24.3.25 gast-0.5.4 google-pasta-0.2.0 grpcio-1.64.0 h5py-3.11.0 idna-3.7 keras-3.3.3 libclang-18.1.1 markdown-3.6 markdown-it-py-3.0.0 mdurl-0.1.2 ml-dtypes-0.3.2 namex-0.0.8 numpy-1.26.4 opt-einsum-3.3.0 optree-0.11.0 packaging-24.0 protobuf-4.25.3 pygments-2.18.0 requests-2.32.2 rich-13.7.1 six-1.16.0 tensorboard-2.16.2 tensorboard-data-server-0.7.2 tensorflow-2.16.1 tensorflow-intel-2.16.1 tensorflow-io-gcs-filesystem-0.31.0 termcolor-2.4.0 typing-extensions-4.12.0 urllib3-2.2.1 werkzeug-3.0.3 wrapt-1.16.0
+
+Installation complete.
+
+
+Restarting R session...
+
+> install.packages("keras")
+WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding:
+
+https://cran.rstudio.com/bin/windows/Rtools/
+Instalowanie pakietu w ‘C:/Users/ath/AppData/Local/R/win-library/4.2’
+(ponieważ ‘lib’ nie jest określony)
+instalowanie dodatkowych zależności ‘zeallot’
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.2/zeallot_0.1.0.zip'
+Content type 'application/zip' length 62122 bytes (60 KB)
+downloaded 60 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.2/keras_2.15.0.zip'
+Content type 'application/zip' length 3188713 bytes (3.0 MB)
+downloaded 3.0 MB
+
+pakiet ‘zeallot’ został pomyślnie rozpakowany oraz sumy MD5 zostały sprawdzone
+pakiet ‘keras’ został pomyślnie rozpakowany oraz sumy MD5 zostały sprawdzone
+
+Pobrane pakiety binarne są w
+	C:\Users\ath\AppData\Local\Temp\Rtmp0MftFd\downloaded_packages
+Warning message:
+pakiet ‘tensorflow’ został zbudowany w wersji R 4.2.3 
+> library(keras)
+Warning message:
+pakiet ‘keras’ został zbudowany w wersji R 4.2.3 
+> install_keras()
+Virtual environment "r-tensorflow" removed.
+Using Python: C:/Users/ath/AppData/Local/Programs/Python/Python311/python.exe
+Creating virtual environment "r-tensorflow" ... 
++ "C:/Users/ath/AppData/Local/Programs/Python/Python311/python.exe" -m venv "C:/Users/ath/Documents/.virtualenvs/r-tensorflow"
+Done!
+Installing packages: pip, wheel, setuptools
++ "C:/Users/ath/Documents/.virtualenvs/r-tensorflow/Scripts/python.exe" -m pip install --upgrade pip wheel setuptools
+Requirement already satisfied: pip in c:\users\ath\docume~1\virtua~1\r-tens~1\lib\site-packages (22.3.1)
+Collecting pip
+  Using cached pip-24.0-py3-none-any.whl (2.1 MB)
+Collecting wheel
+  Using cached wheel-0.43.0-py3-none-any.whl (65 kB)
+Requirement already satisfied: setuptools in c:\users\ath\docume~1\virtua~1\r-tens~1\lib\site-packages (65.5.0)
+Collecting setuptools
+  Using cached setuptools-70.0.0-py3-none-any.whl (863 kB)
+Installing collected packages: wheel, setuptools, pip
+  Attempting uninstall: setuptools
+    Found existing installation: setuptools 65.5.0
+    Uninstalling setuptools-65.5.0:
+      Successfully uninstalled setuptools-65.5.0
+  Attempting uninstall: pip
+    Found existing installation: pip 22.3.1
+    Uninstalling pip-22.3.1:
+      Successfully uninstalled pip-22.3.1
+Successfully installed pip-24.0 setuptools-70.0.0 wheel-0.43.0
+Virtual environment 'r-tensorflow' successfully created.
+Using virtual environment "r-tensorflow" ...
++ "C:/Users/ath/Documents/.virtualenvs/r-tensorflow/Scripts/python.exe" -m pip install --upgrade --no-user "tensorflow==2.15.*" tensorflow-hub tensorflow-datasets scipy requests Pillow h5py pandas pydot
+Collecting tensorflow==2.15.*
+  Using cached tensorflow-2.15.1-cp311-cp311-win_amd64.whl.metadata (3.4 kB)
+Collecting tensorflow-hub
+  Downloading tensorflow_hub-0.16.1-py2.py3-none-any.whl.metadata (1.3 kB)
+Collecting tensorflow-datasets
+  Downloading tensorflow_datasets-4.9.4-py3-none-any.whl.metadata (9.2 kB)
+Collecting scipy
+  Downloading scipy-1.13.1-cp311-cp311-win_amd64.whl.metadata (60 kB)
+     -------------------------------------- 60.6/60.6 kB 160.8 kB/s eta 0:00:00
+Collecting requests
+  Using cached requests-2.32.2-py3-none-any.whl.metadata (4.6 kB)
+Collecting Pillow
+  Downloading pillow-10.3.0-cp311-cp311-win_amd64.whl.metadata (9.4 kB)
+Collecting h5py
+  Using cached h5py-3.11.0-cp311-cp311-win_amd64.whl.metadata (2.5 kB)
+Collecting pandas
+  Downloading pandas-2.2.2-cp311-cp311-win_amd64.whl.metadata (19 kB)
+Collecting pydot
+  Downloading pydot-2.0.0-py3-none-any.whl.metadata (9.6 kB)
+Collecting tensorflow-intel==2.15.1 (from tensorflow==2.15.*)
+  Using cached tensorflow_intel-2.15.1-cp311-cp311-win_amd64.whl.metadata (4.9 kB)
+Collecting absl-py>=1.0.0 (from tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Using cached absl_py-2.1.0-py3-none-any.whl.metadata (2.3 kB)
+Collecting astunparse>=1.6.0 (from tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Using cached astunparse-1.6.3-py2.py3-none-any.whl.metadata (4.4 kB)
+Collecting flatbuffers>=23.5.26 (from tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Using cached flatbuffers-24.3.25-py2.py3-none-any.whl.metadata (850 bytes)
+Collecting gast!=0.5.0,!=0.5.1,!=0.5.2,>=0.2.1 (from tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Using cached gast-0.5.4-py3-none-any.whl.metadata (1.3 kB)
+Collecting google-pasta>=0.1.1 (from tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Using cached google_pasta-0.2.0-py3-none-any.whl.metadata (814 bytes)
+Collecting libclang>=13.0.0 (from tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Using cached libclang-18.1.1-py2.py3-none-win_amd64.whl.metadata (5.3 kB)
+Collecting ml-dtypes~=0.3.1 (from tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Using cached ml_dtypes-0.3.2-cp311-cp311-win_amd64.whl.metadata (20 kB)
+Collecting numpy<2.0.0,>=1.23.5 (from tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Using cached numpy-1.26.4-cp311-cp311-win_amd64.whl.metadata (61 kB)
+Collecting opt-einsum>=2.3.2 (from tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Using cached opt_einsum-3.3.0-py3-none-any.whl.metadata (6.5 kB)
+Collecting packaging (from tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Using cached packaging-24.0-py3-none-any.whl.metadata (3.2 kB)
+Collecting protobuf!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,<5.0.0dev,>=3.20.3 (from tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Using cached protobuf-4.25.3-cp310-abi3-win_amd64.whl.metadata (541 bytes)
+Requirement already satisfied: setuptools in c:\users\ath\docume~1\virtua~1\r-tens~1\lib\site-packages (from tensorflow-intel==2.15.1->tensorflow==2.15.*) (70.0.0)
+Collecting six>=1.12.0 (from tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Using cached six-1.16.0-py2.py3-none-any.whl.metadata (1.8 kB)
+Collecting termcolor>=1.1.0 (from tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Using cached termcolor-2.4.0-py3-none-any.whl.metadata (6.1 kB)
+Collecting typing-extensions>=3.6.6 (from tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Using cached typing_extensions-4.12.0-py3-none-any.whl.metadata (3.0 kB)
+Collecting wrapt<1.15,>=1.11.0 (from tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Downloading wrapt-1.14.1-cp311-cp311-win_amd64.whl.metadata (6.9 kB)
+Collecting tensorflow-io-gcs-filesystem>=0.23.1 (from tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Using cached tensorflow_io_gcs_filesystem-0.31.0-cp311-cp311-win_amd64.whl.metadata (14 kB)
+Collecting grpcio<2.0,>=1.24.3 (from tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Using cached grpcio-1.64.0-cp311-cp311-win_amd64.whl.metadata (3.4 kB)
+Collecting tensorboard<2.16,>=2.15 (from tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Downloading tensorboard-2.15.2-py3-none-any.whl.metadata (1.7 kB)
+Collecting tensorflow-estimator<2.16,>=2.15.0 (from tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Downloading tensorflow_estimator-2.15.0-py2.py3-none-any.whl.metadata (1.3 kB)
+Collecting keras<2.16,>=2.15.0 (from tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Downloading keras-2.15.0-py3-none-any.whl.metadata (2.4 kB)
+Collecting tf-keras>=2.14.1 (from tensorflow-hub)
+  Downloading tf_keras-2.16.0-py3-none-any.whl.metadata (1.6 kB)
+Collecting click (from tensorflow-datasets)
+  Downloading click-8.1.7-py3-none-any.whl.metadata (3.0 kB)
+Collecting dm-tree (from tensorflow-datasets)
+  Downloading dm_tree-0.1.8-cp311-cp311-win_amd64.whl.metadata (2.0 kB)
+Collecting etils>=0.9.0 (from etils[enp,epath,etree]>=0.9.0->tensorflow-datasets)
+  Downloading etils-1.8.0-py3-none-any.whl.metadata (6.4 kB)
+Collecting promise (from tensorflow-datasets)
+  Downloading promise-2.3.tar.gz (19 kB)
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Collecting psutil (from tensorflow-datasets)
+  Downloading psutil-5.9.8-cp37-abi3-win_amd64.whl.metadata (22 kB)
+Collecting tensorflow-metadata (from tensorflow-datasets)
+  Downloading tensorflow_metadata-1.15.0-py3-none-any.whl.metadata (2.4 kB)
+Collecting toml (from tensorflow-datasets)
+  Downloading toml-0.10.2-py2.py3-none-any.whl.metadata (7.1 kB)
+Collecting tqdm (from tensorflow-datasets)
+  Downloading tqdm-4.66.4-py3-none-any.whl.metadata (57 kB)
+     ---------------------------------------- 57.6/57.6 kB ? eta 0:00:00
+Collecting charset-normalizer<4,>=2 (from requests)
+  Using cached charset_normalizer-3.3.2-cp311-cp311-win_amd64.whl.metadata (34 kB)
+Collecting idna<4,>=2.5 (from requests)
+  Using cached idna-3.7-py3-none-any.whl.metadata (9.9 kB)
+Collecting urllib3<3,>=1.21.1 (from requests)
+  Using cached urllib3-2.2.1-py3-none-any.whl.metadata (6.4 kB)
+Collecting certifi>=2017.4.17 (from requests)
+  Using cached certifi-2024.2.2-py3-none-any.whl.metadata (2.2 kB)
+Collecting python-dateutil>=2.8.2 (from pandas)
+  Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+Collecting pytz>=2020.1 (from pandas)
+  Downloading pytz-2024.1-py2.py3-none-any.whl.metadata (22 kB)
+Collecting tzdata>=2022.7 (from pandas)
+  Downloading tzdata-2024.1-py2.py3-none-any.whl.metadata (1.4 kB)
+Collecting pyparsing>=3 (from pydot)
+  Downloading pyparsing-3.1.2-py3-none-any.whl.metadata (5.1 kB)
+Collecting fsspec (from etils[enp,epath,etree]>=0.9.0->tensorflow-datasets)
+  Downloading fsspec-2024.5.0-py3-none-any.whl.metadata (11 kB)
+Collecting importlib_resources (from etils[enp,epath,etree]>=0.9.0->tensorflow-datasets)
+  Downloading importlib_resources-6.4.0-py3-none-any.whl.metadata (3.9 kB)
+Collecting zipp (from etils[enp,epath,etree]>=0.9.0->tensorflow-datasets)
+  Downloading zipp-3.18.2-py3-none-any.whl.metadata (3.5 kB)
+INFO: pip is looking at multiple versions of tf-keras to determine which version is compatible with other requirements. This could take a while.
+Collecting tf-keras>=2.14.1 (from tensorflow-hub)
+  Downloading tf_keras-2.15.1-py3-none-any.whl.metadata (1.7 kB)
+Collecting colorama (from click->tensorflow-datasets)
+  Downloading colorama-0.4.6-py2.py3-none-any.whl.metadata (17 kB)
+Collecting googleapis-common-protos<2,>=1.56.4 (from tensorflow-metadata->tensorflow-datasets)
+  Downloading googleapis_common_protos-1.63.0-py2.py3-none-any.whl.metadata (1.5 kB)
+Requirement already satisfied: wheel<1.0,>=0.23.0 in c:\users\ath\docume~1\virtua~1\r-tens~1\lib\site-packages (from astunparse>=1.6.0->tensorflow-intel==2.15.1->tensorflow==2.15.*) (0.43.0)
+Collecting google-auth<3,>=1.6.3 (from tensorboard<2.16,>=2.15->tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Using cached google_auth-2.29.0-py2.py3-none-any.whl.metadata (4.7 kB)
+Collecting google-auth-oauthlib<2,>=0.5 (from tensorboard<2.16,>=2.15->tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Downloading google_auth_oauthlib-1.2.0-py2.py3-none-any.whl.metadata (2.7 kB)
+Collecting markdown>=2.6.8 (from tensorboard<2.16,>=2.15->tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Using cached Markdown-3.6-py3-none-any.whl.metadata (7.0 kB)
+Collecting tensorboard-data-server<0.8.0,>=0.7.0 (from tensorboard<2.16,>=2.15->tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Using cached tensorboard_data_server-0.7.2-py3-none-any.whl.metadata (1.1 kB)
+Collecting werkzeug>=1.0.1 (from tensorboard<2.16,>=2.15->tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Using cached werkzeug-3.0.3-py3-none-any.whl.metadata (3.7 kB)
+Collecting cachetools<6.0,>=2.0.0 (from google-auth<3,>=1.6.3->tensorboard<2.16,>=2.15->tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Using cached cachetools-5.3.3-py3-none-any.whl.metadata (5.3 kB)
+Collecting pyasn1-modules>=0.2.1 (from google-auth<3,>=1.6.3->tensorboard<2.16,>=2.15->tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Downloading pyasn1_modules-0.4.0-py3-none-any.whl.metadata (3.4 kB)
+Collecting rsa<5,>=3.1.4 (from google-auth<3,>=1.6.3->tensorboard<2.16,>=2.15->tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Using cached rsa-4.9-py3-none-any.whl.metadata (4.2 kB)
+Collecting requests-oauthlib>=0.7.0 (from google-auth-oauthlib<2,>=0.5->tensorboard<2.16,>=2.15->tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Using cached requests_oauthlib-2.0.0-py2.py3-none-any.whl.metadata (11 kB)
+Collecting MarkupSafe>=2.1.1 (from werkzeug>=1.0.1->tensorboard<2.16,>=2.15->tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Using cached MarkupSafe-2.1.5-cp311-cp311-win_amd64.whl.metadata (3.1 kB)
+Collecting pyasn1<0.7.0,>=0.4.6 (from pyasn1-modules>=0.2.1->google-auth<3,>=1.6.3->tensorboard<2.16,>=2.15->tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Downloading pyasn1-0.6.0-py2.py3-none-any.whl.metadata (8.3 kB)
+Collecting oauthlib>=3.0.0 (from requests-oauthlib>=0.7.0->google-auth-oauthlib<2,>=0.5->tensorboard<2.16,>=2.15->tensorflow-intel==2.15.1->tensorflow==2.15.*)
+  Using cached oauthlib-3.2.2-py3-none-any.whl.metadata (7.5 kB)
+Downloading tensorflow-2.15.1-cp311-cp311-win_amd64.whl (2.1 kB)
+Downloading tensorflow_intel-2.15.1-cp311-cp311-win_amd64.whl (300.9 MB)
+   ---------------------------------------- 300.9/300.9 MB 7.4 MB/s eta 0:00:00
+Downloading tensorflow_hub-0.16.1-py2.py3-none-any.whl (30 kB)
+Downloading tensorflow_datasets-4.9.4-py3-none-any.whl (5.1 MB)
+   ---------------------------------------- 5.1/5.1 MB 9.0 MB/s eta 0:00:00
+Downloading scipy-1.13.1-cp311-cp311-win_amd64.whl (46.2 MB)
+   ---------------------------------------- 46.2/46.2 MB 3.9 MB/s eta 0:00:00
+Using cached requests-2.32.2-py3-none-any.whl (63 kB)
+Downloading pillow-10.3.0-cp311-cp311-win_amd64.whl (2.5 MB)
+   ---------------------------------------- 2.5/2.5 MB 1.4 MB/s eta 0:00:00
+Using cached h5py-3.11.0-cp311-cp311-win_amd64.whl (3.0 MB)
+Downloading pandas-2.2.2-cp311-cp311-win_amd64.whl (11.6 MB)
+   ---------------------------------------- 11.6/11.6 MB 5.3 MB/s eta 0:00:00
+Downloading pydot-2.0.0-py3-none-any.whl (22 kB)
+Using cached absl_py-2.1.0-py3-none-any.whl (133 kB)
+Using cached certifi-2024.2.2-py3-none-any.whl (163 kB)
+Using cached charset_normalizer-3.3.2-cp311-cp311-win_amd64.whl (99 kB)
+Downloading etils-1.8.0-py3-none-any.whl (156 kB)
+   ---------------------------------------- 156.1/156.1 kB 4.6 MB/s eta 0:00:00
+Using cached idna-3.7-py3-none-any.whl (66 kB)
+Using cached numpy-1.26.4-cp311-cp311-win_amd64.whl (15.8 MB)
+Using cached protobuf-4.25.3-cp310-abi3-win_amd64.whl (413 kB)
+Downloading pyparsing-3.1.2-py3-none-any.whl (103 kB)
+   ---------------------------------------- 103.2/103.2 kB 6.2 MB/s eta 0:00:00
+Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+   ---------------------------------------- 229.9/229.9 kB 6.9 MB/s eta 0:00:00
+Downloading pytz-2024.1-py2.py3-none-any.whl (505 kB)
+   ---------------------------------------- 505.5/505.5 kB 6.3 MB/s eta 0:00:00
+Using cached termcolor-2.4.0-py3-none-any.whl (7.7 kB)
+Downloading tf_keras-2.15.1-py3-none-any.whl (1.7 MB)
+   ---------------------------------------- 1.7/1.7 MB 4.7 MB/s eta 0:00:00
+Downloading tzdata-2024.1-py2.py3-none-any.whl (345 kB)
+   ---------------------------------------- 345.4/345.4 kB 7.1 MB/s eta 0:00:00
+Using cached urllib3-2.2.1-py3-none-any.whl (121 kB)
+Downloading wrapt-1.14.1-cp311-cp311-win_amd64.whl (35 kB)
+Downloading click-8.1.7-py3-none-any.whl (97 kB)
+   ---------------------------------------- 97.9/97.9 kB 5.5 MB/s eta 0:00:00
+Downloading dm_tree-0.1.8-cp311-cp311-win_amd64.whl (101 kB)
+   ---------------------------------------- 101.3/101.3 kB 5.7 MB/s eta 0:00:00
+Downloading psutil-5.9.8-cp37-abi3-win_amd64.whl (255 kB)
+   ---------------------------------------- 255.1/255.1 kB 7.9 MB/s eta 0:00:00
+Downloading tensorflow_metadata-1.15.0-py3-none-any.whl (28 kB)
+Downloading toml-0.10.2-py2.py3-none-any.whl (16 kB)
+Downloading tqdm-4.66.4-py3-none-any.whl (78 kB)
+   ---------------------------------------- 78.3/78.3 kB 4.5 MB/s eta 0:00:00
+Using cached astunparse-1.6.3-py2.py3-none-any.whl (12 kB)
+Using cached flatbuffers-24.3.25-py2.py3-none-any.whl (26 kB)
+Using cached gast-0.5.4-py3-none-any.whl (19 kB)
+Using cached google_pasta-0.2.0-py3-none-any.whl (57 kB)
+Downloading googleapis_common_protos-1.63.0-py2.py3-none-any.whl (229 kB)
+   ---------------------------------------- 229.1/229.1 kB 4.7 MB/s eta 0:00:00
+Using cached grpcio-1.64.0-cp311-cp311-win_amd64.whl (4.1 MB)
+Downloading keras-2.15.0-py3-none-any.whl (1.7 MB)
+   ---------------------------------------- 1.7/1.7 MB 6.4 MB/s eta 0:00:00
+Using cached libclang-18.1.1-py2.py3-none-win_amd64.whl (26.4 MB)
+Using cached ml_dtypes-0.3.2-cp311-cp311-win_amd64.whl (127 kB)
+Using cached opt_einsum-3.3.0-py3-none-any.whl (65 kB)
+Using cached six-1.16.0-py2.py3-none-any.whl (11 kB)
+Downloading tensorboard-2.15.2-py3-none-any.whl (5.5 MB)
+   ---------------------------------------- 5.5/5.5 MB 7.2 MB/s eta 0:00:00
+Downloading tensorflow_estimator-2.15.0-py2.py3-none-any.whl (441 kB)
+   ---------------------------------------- 442.0/442.0 kB 5.5 MB/s eta 0:00:00
+Using cached tensorflow_io_gcs_filesystem-0.31.0-cp311-cp311-win_amd64.whl (1.5 MB)
+Using cached typing_extensions-4.12.0-py3-none-any.whl (37 kB)
+Downloading colorama-0.4.6-py2.py3-none-any.whl (25 kB)
+Downloading fsspec-2024.5.0-py3-none-any.whl (316 kB)
+   ---------------------------------------- 316.1/316.1 kB 9.9 MB/s eta 0:00:00
+Downloading importlib_resources-6.4.0-py3-none-any.whl (38 kB)
+Using cached packaging-24.0-py3-none-any.whl (53 kB)
+Downloading zipp-3.18.2-py3-none-any.whl (8.3 kB)
+Using cached google_auth-2.29.0-py2.py3-none-any.whl (189 kB)
+Downloading google_auth_oauthlib-1.2.0-py2.py3-none-any.whl (24 kB)
+Using cached Markdown-3.6-py3-none-any.whl (105 kB)
+Using cached tensorboard_data_server-0.7.2-py3-none-any.whl (2.4 kB)
+Using cached werkzeug-3.0.3-py3-none-any.whl (227 kB)
+Using cached cachetools-5.3.3-py3-none-any.whl (9.3 kB)
+Using cached MarkupSafe-2.1.5-cp311-cp311-win_amd64.whl (17 kB)
+Downloading pyasn1_modules-0.4.0-py3-none-any.whl (181 kB)
+   ---------------------------------------- 181.2/181.2 kB 5.3 MB/s eta 0:00:00
+Using cached requests_oauthlib-2.0.0-py2.py3-none-any.whl (24 kB)
+Using cached rsa-4.9-py3-none-any.whl (34 kB)
+Using cached oauthlib-3.2.2-py3-none-any.whl (151 kB)
+Downloading pyasn1-0.6.0-py2.py3-none-any.whl (85 kB)
+   ---------------------------------------- 85.3/85.3 kB ? eta 0:00:00
+Building wheels for collected packages: promise
+  Building wheel for promise (setup.py): started
+  Building wheel for promise (setup.py): finished with status 'done'
+  Created wheel for promise: filename=promise-2.3-py3-none-any.whl size=21544 sha256=33a30efcfb0fe729a0d5a38f45abf242f08ccfce3ffeb7da7eec48310e9460c2
+  Stored in directory: c:\users\ath\appdata\local\pip\cache\wheels\90\74\b1\9b54c896b8d9409e9268329d4d45ede8a8040abe91c8879932
+Successfully built promise
+Installing collected packages: pytz, libclang, flatbuffers, dm-tree, zipp, wrapt, urllib3, tzdata, typing-extensions, toml, termcolor, tensorflow-io-gcs-filesystem, tensorflow-estimator, tensorboard-data-server, six, pyparsing, pyasn1, psutil, protobuf, Pillow, packaging, oauthlib, numpy, MarkupSafe, markdown, keras, importlib_resources, idna, grpcio, gast, fsspec, etils, colorama, charset-normalizer, certifi, cachetools, absl-py, werkzeug, tqdm, scipy, rsa, requests, python-dateutil, pydot, pyasn1-modules, promise, opt-einsum, ml-dtypes, h5py, googleapis-common-protos, google-pasta, click, astunparse, tensorflow-metadata, requests-oauthlib, pandas, google-auth, google-auth-oauthlib, tensorboard, tensorflow-intel, tensorflow-datasets, tensorflow, tf-keras, tensorflow-hub
+Successfully installed MarkupSafe-2.1.5 Pillow-10.3.0 absl-py-2.1.0 astunparse-1.6.3 cachetools-5.3.3 certifi-2024.2.2 charset-normalizer-3.3.2 click-8.1.7 colorama-0.4.6 dm-tree-0.1.8 etils-1.8.0 flatbuffers-24.3.25 fsspec-2024.5.0 gast-0.5.4 google-auth-2.29.0 google-auth-oauthlib-1.2.0 google-pasta-0.2.0 googleapis-common-protos-1.63.0 grpcio-1.64.0 h5py-3.11.0 idna-3.7 importlib_resources-6.4.0 keras-2.15.0 libclang-18.1.1 markdown-3.6 ml-dtypes-0.3.2 numpy-1.26.4 oauthlib-3.2.2 opt-einsum-3.3.0 packaging-24.0 pandas-2.2.2 promise-2.3 protobuf-4.25.3 psutil-5.9.8 pyasn1-0.6.0 pyasn1-modules-0.4.0 pydot-2.0.0 pyparsing-3.1.2 python-dateutil-2.9.0.post0 pytz-2024.1 requests-2.32.2 requests-oauthlib-2.0.0 rsa-4.9 scipy-1.13.1 six-1.16.0 tensorboard-2.15.2 tensorboard-data-server-0.7.2 tensorflow-2.15.1 tensorflow-datasets-4.9.4 tensorflow-estimator-2.15.0 tensorflow-hub-0.16.1 tensorflow-intel-2.15.1 tensorflow-io-gcs-filesystem-0.31.0 tensorflow-metadata-1.15.0 termcolor-2.4.0 tf-keras-2.15.1 toml-0.10.2 tqdm-4.66.4 typing-extensions-4.12.0 tzdata-2024.1 urllib3-2.2.1 werkzeug-3.0.3 wrapt-1.14.1 zipp-3.18.2
+
+Installation complete.
+
+
+Restarting R session...
+
+> library(keras)
+Warning messages:
+1: pakiet ‘tensorflow’ został zbudowany w wersji R 4.2.3 
+2: pakiet ‘keras’ został zbudowany w wersji R 4.2.3 
+> cifar <- dataset_cifar10()
+2024-05-24 16:12:39.361670: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\ath\DOCUME~1\VIRTUA~1\R-TENS~1\Lib\site-packages\keras\src\losses.py:2976: The name tf.losses.sparse_softmax_cross_entropy is deprecated. Please use tf.compat.v1.losses.sparse_softmax_cross_entropy instead.
+
+> X_train <- cifar$train$x
+> X_test <- cifar$test$x
+> y_train <- cifar$train$y
+> y_test <- cifar$test$y
+> X_train <- X_train / 255
+> X_test <- X_test / 255
+> y_train <- to_categorical(y_train, num_classes = 10)
+> y_test <- to_categorical(y_test, num_classes = 10)
+> model <- keras_model_sequential()
+WARNING:tensorflow:From C:\Users\ath\DOCUME~1\VIRTUA~1\R-TENS~1\Lib\site-packages\keras\src\backend.py:873: The name tf.get_default_graph is deprecated. Please use tf.compat.v1.get_default_graph instead.
+
+2024-05-24 16:14:16.615181: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE SSE2 SSE3 SSE4.1 SSE4.2 AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+> model <- model %>%
++     layer_dense(units = 256, activation = "relu", input_shape = c(32,32,3)) %>%
++     layer_dropout(rate = 0.25) %>%
++     layer_dense(units = 128, activation = "relu") %>%
++     layer_dropout(rate = 0.25) %>%
++     layer_dense(units = 64, activation = "relu") %>%
++     layer_dropout(rate = 0.25) %>%
++     layer_flatten(input_shape = c(32,32,3)) %>%
++     layer_dense(units = 10, activation = 'softmax')
+> model %>% compile(
++     loss = "categorical_crossentropy",
++     optimizer = optimizer_adam(),
++     metrics = "accuracy"
++ )
+> summary(model)
+Model: "sequential"
+_________________________________________________________________________
+ Layer (type)                   Output Shape                  Param #    
+=========================================================================
+ dense_3 (Dense)                (None, 32, 32, 256)           1024       
+ dropout_2 (Dropout)            (None, 32, 32, 256)           0          
+ dense_2 (Dense)                (None, 32, 32, 128)           32896      
+ dropout_1 (Dropout)            (None, 32, 32, 128)           0          
+ dense_1 (Dense)                (None, 32, 32, 64)            8256       
+ dropout (Dropout)              (None, 32, 32, 64)            0          
+ flatten (Flatten)              (None, 65536)                 0          
+ dense (Dense)                  (None, 10)                    655370     
+=========================================================================
+Total params: 697546 (2.66 MB)
+Trainable params: 697546 (2.66 MB)
+Non-trainable params: 0 (0.00 Byte)
+_________________________________________________________________________
+> history <- model %>%
++     fit(X_train, y_train, epochs = 10, batch_size = 32,
++         validation_data = list(X_test,y_test), shuffle=TRUE)
+Epoch 1/10
+WARNING:tensorflow:From C:\Users\ath\DOCUME~1\VIRTUA~1\R-TENS~1\Lib\site-packages\keras\src\utils\tf_utils.py:492: The name tf.ragged.RaggedTensorValue is deprecated. Please use tf.compat.v1.ragged.RaggedTensorValue instead.
+
+WARNING:tensorflow:From C:\Users\ath\DOCUME~1\VIRTUA~1\R-TENS~1\Lib\site-packages\keras\src\engine\base_layer_utils.py:384: The name tf.executing_eagerly_outside_functions is deprecated. Please use tf.compat.v1.executing_eagerly_outside_functions instead.
+
+1563/1563 [==============================] - 231s 147ms/step - loss: 1.6391 - accuracy: 0.4196 - val_loss: 1.4976 - val_accuracy: 0.4678
+Epoch 2/10
+1563/1563 [==============================] - 230s 147ms/step - loss: 1.4703 - accuracy: 0.4842 - val_loss: 1.4488 - val_accuracy: 0.4906
+Epoch 3/10
+1563/1563 [==============================] - 232s 148ms/step - loss: 1.4051 - accuracy: 0.5090 - val_loss: 1.4733 - val_accuracy: 0.4779
+Epoch 4/10
+1563/1563 [==============================] - 233s 149ms/step - loss: 1.3627 - accuracy: 0.5258 - val_loss: 1.4390 - val_accuracy: 0.4953
+Epoch 5/10
+1563/1563 [==============================] - 240s 153ms/step - loss: 1.3179 - accuracy: 0.5404 - val_loss: 1.4451 - val_accuracy: 0.4976
+Epoch 6/10
+1563/1563 [==============================] - 233s 149ms/step - loss: 1.2837 - accuracy: 0.5542 - val_loss: 1.4691 - val_accuracy: 0.4853
+Epoch 7/10
+1563/1563 [==============================] - 230s 147ms/step - loss: 1.2466 - accuracy: 0.5690 - val_loss: 1.4731 - val_accuracy: 0.4867
+Epoch 8/10
+1563/1563 [==============================] - 225s 144ms/step - loss: 1.2101 - accuracy: 0.5808 - val_loss: 1.4727 - val_accuracy: 0.4964
+Epoch 9/10
+1563/1563 [==============================] - 227s 145ms/step - loss: 1.1752 - accuracy: 0.5917 - val_loss: 1.5125 - val_accuracy: 0.4952
+Epoch 10/10
+1563/1563 [==============================] - 227s 145ms/step - loss: 1.1441 - accuracy: 0.6037 - val_loss: 1.5388 - val_accuracy: 0.4864
+> model %>%
++     evaluate(X_test, y_test)
+313/313 [==============================] - 9s 28ms/step - loss: 1.5388 - accuracy: 0.4864
+    loss accuracy 
+1.538844 0.486400 
+> save_model_tf(model, "saved_model/model")
